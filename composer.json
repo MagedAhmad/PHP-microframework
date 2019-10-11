@@ -2,6 +2,13 @@
   "autoload": {
     "classmap": [
       "./"
-    ]
+    ],
+    "psr-4": {
+      "Acme\\": "src/"
+    }
+  },
+  "require": {
+    "symfony/console": "^4.3",
+    "guzzlehttp/guzzle": "~6.0"
   }
 }
