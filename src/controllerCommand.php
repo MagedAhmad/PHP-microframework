@@ -11,12 +11,20 @@ use GuzzleHttp\ClientInterface;
 class controllerCommand extends Command {
 
     private $client;
+
+    /**
+     * controllerCommand constructor.
+     * @param ClientInterface $client
+     */
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
         parent::__construct();
     }
 
+    /**
+     *
+     */
     public function configure() {
 
         $this->setName('controller')
@@ -24,6 +32,11 @@ class controllerCommand extends Command {
             ->addArgument('name', InputArgument::REQUIRED, 'provide the controller name');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return vois
+     */
     public function execute(InputInterface $input, OutputInterface $output) {
 
             $name = $input->getArgument('name'). ".php";
@@ -35,6 +48,10 @@ class controllerCommand extends Command {
             $output->writeln("<info>Controller built successfully</info>");
     }
 
+    /**
+     * @param $name
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     private function buildController($name) {
         $response = $this->client->
             request('GET', 'https://filebin.net/8370wdbbewlgfi94/templateController.php?t=mzggn2rt')
@@ -44,6 +61,10 @@ class controllerCommand extends Command {
 
     }
 
+    /**
+     * @param $name
+     * @param $output
+     */
     private function checkIfFileExists($name, $output) {
         $files = new \FilesystemIterator('app/controllers');
         foreach($files as $file) {
