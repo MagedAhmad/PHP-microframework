@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-
+use App\Core\Request;
 
 class Router {
 
@@ -21,6 +21,14 @@ class Router {
 
 
     public function get($uri, $controller) {
+        $parameters = (new Request)->parameters();
+        if(isset($parameters)) {
+           $uri = trim($_SERVER['REQUEST_URI'],$parameters);
+           if($uri  == null) {
+               $uri = '';
+           }
+        }
+
         $this->routes['GET'][$uri] = $controller;
     }
 
@@ -39,7 +47,7 @@ class Router {
 //            return $this->routes[$methodType][$uri];
         }
 
-        throw new Exception('Couldnt find this path');
+        throw new \Exception('Couldnt find this path');
     }
 
 

@@ -7,17 +7,26 @@ namespace App\Core;
 class Trending
 {
 
+    public static function fetch($language = "php", $since = "weekly") {
+       $url = self::url($language, $since);
+       $content = file_get_contents($url);
+       return json_decode($content);
 
-    public static function fetch($language, $since) {
+    }
 
-        $url = self::url($language, $since);
-        $content = file_get_contents($url);
+    public static function FetchLanguages() {
+        $content = file_get_contents("https://github-trending-api.now.sh/languages");
         return json_decode($content);
     }
 
-    private static function url($language, $since) {
+
+
+    public static function url($language, $since) {
         return "https://github-trending-api.now.sh/repositories?language=".$language."&since=". $since;
     }
+
+
+
 
 
 }

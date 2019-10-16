@@ -5,6 +5,7 @@ A micro PHP-OOP framework, follows mvc pattern .
 
 * Rename .config.Example.php to .config.php
 * Enter your database info in .config.php
+* run `composer install`
 
 You are ready to go ..
 
@@ -23,7 +24,29 @@ Using command line enter
 ````
 ./project.php controller <controllername>
 ````
+
 this will create a controller called ``app/controllers/<controllername>.php``
 
-Hint: Project still not ready for deployment purposes. 
 
+### Trending Repositories Feature
+
+---
+
+
+Languages supported are available using an api 
+`https://github-trending-api.now.sh/languages`
+
+Support 3 periods  `daily` , `weekly` , `monthly`
+
+to get trending repos call
+````
+Trending::fetch($lanuage, $since);
+````
+
+For pagination u can use `Paginator` class.
+
+``` 
+$paginator = new Paginator();
+
+$paginator->get($records, $limit);
+```

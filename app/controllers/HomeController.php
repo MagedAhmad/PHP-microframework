@@ -4,17 +4,35 @@ namespace App\Controllers;
 
 use App\Core\App;
 
+use App\Core\Paginator;
 use App\Core\Trending;
 
 class HomeController {
 
     public function home(){
 
-        $users = App::get('database')->selectAll('names');
+        $language = 'php';
+        $since = 'weekly';
+        $paginate = 10;
 
-        $repos = Trending::fetch('php', 'weekly');
+        if(isset($_GET['language'])) {
 
-        return view('index', compact('users', 'repos'));
+            $language = $_GET['language'];
+            $since = $_GET['since'];
+            $paginate = $_GET['paginate'];
+
+        }
+
+        $repos = Trending::fetch($language, $since);
+
+        $languages = Trending::FetchLanguages();
+
+        $paginator = new Paginator();
+
+        $repos = $paginator->get($repos, $paginate);
+
+        return view('index', compact('repos', 'paginator', 'languages'));
+
     }
 
 
