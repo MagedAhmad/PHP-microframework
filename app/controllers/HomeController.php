@@ -10,25 +10,14 @@ use App\Core\Trending;
 class HomeController {
 
     public function home(){
+        $language = (isset($_GET['language'])) ? $_GET['language'] : 'php';
+        $since = (isset($_GET['since'])) ? $_GET['since'] : 'weekly';
+        $paginate = (isset($_GET['paginate'])) ? $_GET['paginate'] : 10;
 
-        $language = 'php';
-        $since = 'weekly';
-        $paginate = 10;
-
-        if(isset($_GET['language'])) {
-
-            $language = $_GET['language'];
-            $since = $_GET['since'];
-            $paginate = $_GET['paginate'];
-
-        }
 
         $repos = Trending::fetch($language, $since);
-
         $languages = Trending::FetchLanguages();
-
         $paginator = new Paginator();
-
         $repos = $paginator->get($repos, $paginate);
 
         return view('index', compact('repos', 'paginator', 'languages'));

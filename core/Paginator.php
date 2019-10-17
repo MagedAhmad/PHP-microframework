@@ -49,6 +49,15 @@ class Paginator
 
     }
 
+
+    public function prevUrl() {
+        return $_SERVER['REQUEST_URI'] . '&page='. $this->pagination['prev_page'];
+    }
+
+    public function nextUrl() {
+        return $_SERVER['REQUEST_URI'] . '&page='. $this->pagination['next_page'];
+    }
+
     private function getPages($records_number, $limit) {
         return ceil($records_number / $limit);
     }

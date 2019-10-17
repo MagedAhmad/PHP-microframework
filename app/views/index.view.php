@@ -27,6 +27,7 @@
                         (isset($_GET["paginate"])) ? $paginate = $_GET["paginate"] : $paginate='10';
                     ?>
                     <select name="paginate" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                      <option <?php if ($paginate == 5 ) echo 'selected' ; ?> value="5">5</option>
                       <option <?php if ($paginate == 10 ) echo 'selected' ; ?> value="10">10</option>
                       <option <?php if ($paginate == 15 ) echo 'selected' ; ?> value="15">15</option>
                       <option <?php if ($paginate == 20 ) echo 'selected' ; ?> value="20">20</option>
@@ -42,8 +43,11 @@
                     ?>
 
                     <select name="language" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-
+                            <option value="">
+                                Choose Language
+                            </option>
                         <?php foreach($languages as $lang) { ?>
+
                             <option <?php if ($language == $lang->name) echo 'selected'; ?>
                                     value="<?php echo $lang->name ?>"><?php echo $lang->name?></option>
                         <?php }?>
@@ -69,6 +73,21 @@
                   </div>
 
                 <input type="submit" class="bg-blue-500 rounded text-white px-4 py-2 hover:bg-blue-800" value="Filter">
+                    <!--     Start Pagination         -->
+                    <ul class="flex mx-auto list-reset border border-grey-light rounded w-auto font-sans">
+                         <?php if($paginator->prev()) { ?>
+                             <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->prevUrl() ?>">Previous</a></li>
+                         <?php }else { ?>
+                             <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Previous</a></li>
+                         <?php } ?>
+                          <?php if($paginator->next()) { ?>
+                             <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->nextUrl() ?>">Next</a></li>
+                         <?php }else { ?>
+                             <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Next</a></li>
+
+                         <?php } ?>
+                     </ul>
+                    <!--     End Navigation         -->
                 </div>
               </form>
           </div>
@@ -104,21 +123,7 @@
                   </tbody>
               </table>
 
-<!--     Start Pagination         -->
-              <ul class="flex list-reset border border-grey-light rounded w-auto font-sans">
-                     <?php if($paginator->prev()) { ?>
-                         <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="/?page=<?php echo $paginator->pagination['prev_page']; ?>">Previous</a></li>
-                     <?php }else { ?>
-                         <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Previous</a></li>
-                     <?php } ?>
-                      <?php if($paginator->next()) { ?>
-                         <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="/?page=<?php echo $paginator->pagination['next_page']; ?>">Next</a></li>
-                     <?php }else { ?>
-                         <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Next</a></li>
 
-                     <?php } ?>
-                 </ul>
-<!--     End Navigation         -->
 
           </div>
 
