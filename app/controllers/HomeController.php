@@ -16,11 +16,10 @@ class HomeController {
 
 
         $repos = Trending::fetch($language, $since);
-        $languages = Trending::FetchLanguages();
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $paginate);
 
-        return view('index', compact('repos', 'paginator', 'languages'));
+        return view('index', compact('repos', 'paginator'));
 
     }
 

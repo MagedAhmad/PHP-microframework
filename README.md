@@ -1,4 +1,4 @@
-# PHP-Microframework
+# PHP-Microframework [![Build Status](https://travis-ci.org/MagedAhmad/PHP-microframework.svg?branch=master)](https://travis-ci.org/MagedAhmad/PHP-microframework)
 A micro PHP-OOP framework, follows mvc pattern . 
 
 ## Installation

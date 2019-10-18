@@ -48,7 +48,7 @@
                             <option value="">
                                 Choose Language
                             </option>
-                        <?php foreach($languages as $lang) { ?>
+                        <?php foreach(App\Core\Trending::FetchLanguages() as $lang) { ?>
 
                             <option <?php if ($language == $lang->name) echo 'selected'; ?>
                                     value="<?php echo $lang->name ?>"><?php echo $lang->name?></option>

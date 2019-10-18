@@ -18,3 +18,5 @@ function view($page, $data = []) {
 function dd($arg) {
     die(var_dump($arg));
 }
+
+
