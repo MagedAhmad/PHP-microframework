@@ -14,7 +14,6 @@ class HomeController {
         $since = (isset($_GET['since'])) ? $_GET['since'] : 'weekly';
         $paginate = (isset($_GET['paginate'])) ? $_GET['paginate'] : 10;
 
-
         $repos = Trending::fetch($language, $since);
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $paginate);

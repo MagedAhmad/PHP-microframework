@@ -13,7 +13,6 @@
    <body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
 
 
-
       <!--Container-->
       <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
 
@@ -75,21 +74,7 @@
                   </div>
 
                 <input type="submit" class="bg-blue-500 rounded text-white px-4 py-2 hover:bg-blue-800" value="Filter">
-                    <!--     Start Pagination         -->
-                    <ul class="flex mx-auto list-reset border border-grey-light rounded w-auto font-sans">
-                         <?php if($paginator->prev()) { ?>
-                             <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->prevUrl() ?>">Previous</a></li>
-                         <?php }else { ?>
-                             <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Previous</a></li>
-                         <?php } ?>
-                          <?php if($paginator->next()) { ?>
-                             <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->nextUrl() ?>">Next</a></li>
-                         <?php }else { ?>
-                             <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Next</a></li>
 
-                         <?php } ?>
-                     </ul>
-                    <!--     End Navigation         -->
                 </div>
               </form>
           </div>
@@ -134,6 +119,25 @@
 
 
                   </tbody>
+                  <tfoot class="my-4">
+                      <!--     Start Pagination         -->
+                    <ul class="flex list-reset border border-grey-light rounded font-sans">
+                         <?php if($paginator->prev()) { ?>
+                             <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->prevUrl() ?>">Prev</a></li>
+                         <?php }else { ?>
+                             <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Previous</a></li>
+                         <?php } ?>
+                         <?php $paginator->links(); ?>
+
+                          <?php if($paginator->next()) { ?>
+                             <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->nextUrl() ?>">Next</a></li>
+                         <?php }else { ?>
+                             <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Next</a></li>
+
+                         <?php } ?>
+                     </ul>
+                    <!--     End Navigation         -->
+                  </tfoot>
               </table>
               <?php } ?>
 

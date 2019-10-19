@@ -14,8 +14,6 @@ class Request {
         $uri= str_replace( $_SERVER['QUERY_STRING'], '', $uri );
         $uri = trim($uri, '?');
 
-
-
         return $uri;
 
     }
