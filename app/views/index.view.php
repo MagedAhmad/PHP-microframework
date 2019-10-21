@@ -12,26 +12,29 @@
    </head>
    <body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
 
-
       <!--Container-->
       <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
 
 			<!--Title-->
 			<h1 class="flex items-center font-sans font-bold break-normal text-indigo-500 px-2 py-8 text-xl md:text-2xl">
-				Trending Repositories
+				Trending Github Repositories
 			</h1>
           <div class="border">
               <form action="/" method="GET">
                 <div class="flex my-4 mx-2">
                   <div class="relative mx-2">
-                      <?php
-                        (isset($_GET["paginate"])) ? $paginate = $_GET["paginate"] : $paginate='10';
+                   <?php
+                        (isset($_GET["provider"])) ? $provider = $_GET["provider"] : $provider='github';
                     ?>
-                    <select name="paginate" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                      <option <?php if ($paginate == 5 ) echo 'selected' ; ?> value="5">5</option>
-                      <option <?php if ($paginate == 10 ) echo 'selected' ; ?> value="10">10</option>
-                      <option <?php if ($paginate == 15 ) echo 'selected' ; ?> value="15">15</option>
-                      <option <?php if ($paginate == 20 ) echo 'selected' ; ?> value="20">20</option>
+                        
+                    <select name="provider" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+
+                            
+                        <?php foreach(App\Core\Trending::FetchProviders() as $prov) { ?>
+
+                            <option <?php if ($provider == $prov) echo 'selected'; ?>
+                                    value="<?php echo $prov ?>"><?php echo $prov ?></option>
+                        <?php }?>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -39,18 +42,32 @@
                   </div>
 
                   <div class="relative mx-2">
-                   <?php
-                   (isset($_GET["language"])) ? $language = $_GET["language"] : $language='php';
+                      <?php
+                        (isset($_GET["offset"])) ? $offset = $_GET["offset"] : $offset='10';
                     ?>
-
+                    <select name="offset" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                      <option <?php if ($offset == 5 ) echo 'selected' ; ?> value="5">5</option>
+                      <option <?php if ($offset == 10 ) echo 'selected' ; ?> value="10">10</option>
+                      <option <?php if ($offset == 15 ) echo 'selected' ; ?> value="15">15</option>
+                      <option <?php if ($offset == 20 ) echo 'selected' ; ?> value="20">20</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                  </div>
+                    <?php
+                    (isset($_GET["language"])) ? $language = $_GET["language"] : $language='PHP';
+                    ?>
+                  <div class="relative mx-2">
+                   
+                        
                     <select name="language" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                            <option value="">
-                                Choose Language
-                            </option>
+
+                            
                         <?php foreach(App\Core\Trending::FetchLanguages() as $lang) { ?>
 
                             <option <?php if ($language == $lang->name) echo 'selected'; ?>
-                                    value="<?php echo $lang->name ?>"><?php echo $lang->name?></option>
+                                    value="<?php echo $lang->name ?>"><?php echo $lang->name ?></option>
                         <?php }?>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -112,11 +129,8 @@
                       echo "<td class='border px-4 py-2 sort_current'>". $repo->currentPeriodStars ."</td>";
 //                      echo "<td class='border px-4 py-2'>". $repo->description ."</td>";
                     echo "</tr>";
-
-
                   }
                   ?>
-
 
                   </tbody>
                   <tfoot class="my-4">

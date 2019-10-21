@@ -18,6 +18,7 @@ class Paginator
         'last_page' => ''
     ];
 
+
     /**
      * @param $records
      * @param $limit
@@ -110,6 +111,8 @@ class Paginator
     private function getPages($records_number, $limit) {
         return ceil($records_number / $limit);
     }
+
+    
 
     /**
      * @return string

@@ -10,18 +10,38 @@ use App\Core\Trending;
 class HomeController {
 
     public function home(){
-        $language = (isset($_GET['language'])) ? $_GET['language'] : 'php';
-        $since = (isset($_GET['since'])) ? $_GET['since'] : 'weekly';
-        $paginate = (isset($_GET['paginate'])) ? $_GET['paginate'] : 10;
 
-        $repos = Trending::fetch($language, $since);
+    	// Get trending repositories
+    	$args = $this->getArgs();
+        $repos = Trending::fetch($args);
+
+        // pagination
+        $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
         $paginator = new Paginator();
-        $repos = $paginator->get($repos, $paginate);
+        $repos = $paginator->get($repos, $offset);
 
         return view('index', compact('repos', 'paginator'));
 
     }
 
+
+    /*
+    * Get Trending Arguments 
+    * Provider - Language - Since 
+    * 
+    * return array
+    */
+    public function getArgs() {
+        $provider = (isset($_GET['provider'])) ? $_GET['provider'] : 'github';
+        $language = (isset($_GET['language'])) ? $_GET['language'] : 'PHP';
+        $since = (isset($_GET['since'])) ? $_GET['since'] : 'weekly';
+
+        return [
+        	'provider' => $provider, 
+        	'language' => $language, 
+        	'since' => $since
+        ];
+    }
 
 
 

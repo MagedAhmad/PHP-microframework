@@ -7,6 +7,7 @@ class Request {
     public $parameters = [];
     public $params = [];
 
+
     public static function uri() {
 
         $uri = trim($_SERVER['REQUEST_URI'], '/');
@@ -23,6 +24,7 @@ class Request {
         return $_SERVER['REQUEST_METHOD'];
     }
 
+
     public function parameters() {
 
         $url = $_SERVER['QUERY_STRING'];
@@ -32,5 +34,6 @@ class Request {
             $this->params[$temp[0]] = $temp[1];
         }, $this->parameters);
         return $this->params;
+
     }
 }
