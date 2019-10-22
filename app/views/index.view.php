@@ -23,9 +23,7 @@
               <form action="/" method="GET">
                 <div class="flex my-4 mx-2">
                   <div class="relative mx-2">
-                   <?php
-                        (isset($_GET["provider"])) ? $provider = $_GET["provider"] : $provider='github';
-                    ?>
+
                         
                     <select name="provider" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
 
@@ -44,7 +42,7 @@
                   <div class="relative mx-2">
                       <?php
                         (isset($_GET["offset"])) ? $offset = $_GET["offset"] : $offset='10';
-                    ?>
+                      ?>
                     <select name="offset" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                       <option <?php if ($offset == 5 ) echo 'selected' ; ?> value="5">5</option>
                       <option <?php if ($offset == 10 ) echo 'selected' ; ?> value="10">10</option>
@@ -55,9 +53,7 @@
                       <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                   </div>
-                    <?php
-                    (isset($_GET["language"])) ? $language = $_GET["language"] : $language='PHP';
-                    ?>
+
                   <div class="relative mx-2">
                    
                         
@@ -66,7 +62,7 @@
                             
                         <?php foreach(App\Core\Trending::FetchLanguages() as $lang) { ?>
 
-                            <option <?php if ($language == $lang->name) echo 'selected'; ?>
+                            <option <?php if ($args['language'] == $lang->name) echo 'selected'; ?>
                                     value="<?php echo $lang->name ?>"><?php echo $lang->name ?></option>
                         <?php }?>
                     </select>
@@ -75,15 +71,11 @@
                     </div>
                   </div>
                   <div class="relative mx-2">
-                      <?php
 
-                        (isset($_GET["since"])) ? $since = $_GET["since"] : $since='weekly';
-
-                        ?>
                     <select name="since" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                        <option <?php if ($since == 'daily' ) echo 'selected' ; ?> value="daily" >Daily</option>
-                        <option <?php if ($since == 'weekly' ) echo 'selected' ; ?> value="weekly">Weekly</option>
-                        <option <?php if ($since == 'monthly' ) echo 'selected' ; ?> value="monthly">Monthly</option>
+                        <option <?php if ($args['since'] == 'daily' ) echo 'selected' ; ?> value="daily" >Daily</option>
+                        <option <?php if ($args['since'] == 'weekly' ) echo 'selected' ; ?> value="weekly">Weekly</option>
+                        <option <?php if ($args['since'] == 'monthly' ) echo 'selected' ; ?> value="monthly">Monthly</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>

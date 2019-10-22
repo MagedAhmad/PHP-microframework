@@ -4,13 +4,21 @@
 use App\Core\Trending;
 use PHPUnit\Framework\TestCase;
 
-class ReadRepositoriesTest extends TestCase
+class TrendingTest extends TestCase
 {
 
 
-    public function test_trending_class_return_proper_repositories_url()
+    public function testFetchProviders()
     {
-        $url = "https://github-trending-api.now.sh/repositories?language=php&since=weekly";
+        $providers = Trending::FetchProviders();
+
+        $this->assertEquals($providers, ['github', 'gitlab', 'bitbucket']);
+    }
+
+
+    public function testUrl()
+    {
+        $url = "https://github-trending-api.now.sh/repositories?language=PHP&since=weekly";
 
         $args = [
             'provider' => 'github',
@@ -22,7 +30,7 @@ class ReadRepositoriesTest extends TestCase
             $url,
             Trending::url($args)
         );
-        
+
 
         $url = "https://github-trending-api.now.sh/repositories?language=java&since=monthly";
 
@@ -37,9 +45,14 @@ class ReadRepositoriesTest extends TestCase
         );
     }
 
+//    public function testFetchLanguages()
+//    {
+//
+//    }
+
+//    public function testFetch()
+//    {
+//
+//    }
 
 }
-
-
-
-

@@ -42,7 +42,7 @@ class Paginator
      *  get the current page number
      * @return int|mixed
      */
-    protected function getCurrentPage() {
+    public function getCurrentPage() {
         if (isset($_GET['page']) && $_GET['page'] != "") {
              return $_GET['page'];
         } else {

@@ -20,7 +20,7 @@ class HomeController {
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $offset);
 
-        return view('index', compact('repos', 'paginator'));
+        return view('index', compact('repos', 'paginator', 'args'));
 
     }
 
@@ -32,9 +32,12 @@ class HomeController {
     * return array
     */
     public function getArgs() {
-        $provider = (isset($_GET['provider'])) ? $_GET['provider'] : 'github';
-        $language = (isset($_GET['language'])) ? $_GET['language'] : 'PHP';
-        $since = (isset($_GET['since'])) ? $_GET['since'] : 'weekly';
+
+        $config =  App::get('config')['Api'];
+
+        $provider = (isset($_GET['provider'])) ? $_GET['provider'] : $config['provider'];
+        $language = (isset($_GET['language'])) ? $_GET['language'] :  $config['language'];
+        $since = (isset($_GET['since'])) ? $_GET['since'] : $config['since'];
 
         return [
         	'provider' => $provider, 
