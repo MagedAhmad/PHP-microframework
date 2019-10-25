@@ -14,7 +14,8 @@ class PaginatorTest extends TestCase
         $this->paginator = new Paginator();
     }
 
-    public function testGetCurrentPage() {
+
+    public function test_get_current_page() {
         $current_page = $_GET['page'] = 3;
 
         $this->assertEquals(

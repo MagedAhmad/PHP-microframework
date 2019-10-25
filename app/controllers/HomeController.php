@@ -9,6 +9,7 @@ use App\Core\Trending;
 
 class HomeController {
 
+
     public function home(){
 
     	// Get trending repositories
@@ -23,7 +24,6 @@ class HomeController {
         return view('index', compact('repos', 'paginator', 'args'));
 
     }
-
 
     /*
     * Get Trending Arguments 
@@ -45,6 +45,9 @@ class HomeController {
         	'since' => $since
         ];
     }
+
+
+
 
 
 

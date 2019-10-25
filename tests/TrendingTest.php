@@ -8,7 +8,7 @@ class TrendingTest extends TestCase
 {
 
 
-    public function testFetchProviders()
+    public function test_fetch_providers()
     {
         $providers = Trending::FetchProviders();
 
@@ -16,7 +16,7 @@ class TrendingTest extends TestCase
     }
 
 
-    public function testUrl()
+    public function test_api_url()
     {
         $url = "https://github-trending-api.now.sh/repositories?language=PHP&since=weekly";
 

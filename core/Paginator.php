@@ -118,7 +118,7 @@ class Paginator
      * @return string
      */
     public function Baseurl() {
-        if($_SERVER['QUERY_STRING'] != null && $_SERVER['QUERY_STRING'] != "page=".$this->pagination['current_page']) {
+        if(!empty($_SERVER['QUERY_STRING']) && isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != "page=".$this->pagination['current_page']) {
 
             if(strpos($_SERVER['QUERY_STRING'], '&page=' . $this->pagination['current_page'])) {
                 $url = trim($_SERVER['QUERY_STRING'], '&page='. $this->pagination['current_page']);
@@ -127,7 +127,11 @@ class Paginator
             $url = $_SERVER['QUERY_STRING'];
             return '?' . $url . '&page=' ;
         }else {
-            $url = trim($_SERVER['QUERY_STRING'], 'page='. $this->pagination['current_page']);
+            if(isset($_SERVER['QUERY_STRING'])) {
+                $url = trim($_SERVER['QUERY_STRING'], '?page='. $this->pagination['current_page']);
+            }else {
+                $url = $_SERVER['REQUEST_URI'];
+            }
             return $url . "?page=";
         }
     }
