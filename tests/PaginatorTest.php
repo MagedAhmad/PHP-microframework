@@ -29,6 +29,24 @@ class PaginatorTest extends TestCase
             $this->paginator->getCurrentPage()
         );
     }
+    public function test_get_next_page_if_current_page_is_not_set(){
+        $this->paginator->setPages();
+        $this->assertEquals(
+            2,
+            $this->paginator->pagination['next_page']
+        );
+    }
+
+    public function test_get_next_page_if_current_page_is_set() {
+        $current_page = $_GET['page'] = 4;
+        $this->paginator->setPages();
+        $this->assertEquals(
+            $current_page + 1,
+            $this->paginator->pagination['next_page']
+        );
+    }
+
+
 
 
 
@@ -52,12 +70,8 @@ class PaginatorTest extends TestCase
 //    {
 //
 //    }
-//
-//    public function testNext()
-//    {
-//
-//    }
-//
+
+
 //    public function testBaseurl()
 //    {
 //

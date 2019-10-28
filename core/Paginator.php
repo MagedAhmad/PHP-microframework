@@ -15,7 +15,6 @@ class Paginator
         'current_page' => '',
         'next_page' => '',
         'prev_page' => '',
-        'last_page' => ''
     ];
 
 
@@ -27,17 +26,16 @@ class Paginator
     public function get($records, $limit) {
 
         $this->pagination['total_pages'] = $this->getPages(count($records), $limit);
-
-        $this->pagination['current_page'] = $this->getCurrentPage();
-        $this->pagination['prev_page'] = $this->pagination['current_page'] - 1 ;
-        $this->pagination['next_page'] = $this->pagination['current_page'] + 1 ;
-        $this->pagination['last_page'] = $this->pagination['total_pages'] - 1 ;
-
+        $this->setPages();
         return array_slice($records, $this->pagination['prev_page']*$limit, $limit);
 
     }
 
-
+    public function setPages() {
+        $this->pagination['current_page'] = $this->getCurrentPage();
+        $this->pagination['prev_page'] = $this->pagination['current_page'] - 1 ;
+        $this->pagination['next_page'] = $this->pagination['current_page'] + 1 ;
+    }
     /**
      *  get the current page number
      * @return int|mixed

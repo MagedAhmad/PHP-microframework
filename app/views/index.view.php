@@ -3,7 +3,7 @@
 
           <div class="border flex justify-center ">
               <form action="/" method="GET">
-                <div class="flex my-4 mx-2">
+                <div class="flex flex-col md:flex-row my-4 mx-2">
                   <div class="relative mx-2">
 
                     <select name="provider" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
@@ -73,7 +73,7 @@
                   echo "Couldn't find any repositories, Try different Language";
               }else {
           ?>
-          <table class="myTable w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" id="myTable">
+          <table class="myTable w-full sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" id="myTable">
               <thead class="text-white">
                 <tr class="bg-blue-500 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
                   <th class="px-4 py-2">Name</th>
@@ -91,15 +91,15 @@
 <!--                      <th class="px-4 py-2">Description</th>-->
                 </tr>
               </thead>
-              <tbody class="flex-1 sm:flex-none">
+              <tbody>
               <?php foreach($repos as $repo) {
                 echo "<tr class='flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0'>";
-                  echo "<td class='border-grey-light border hover:bg-gray-100 p-3'>" . $repo->name ."</td>";
-                  echo "<td class='border-grey-light border hover:bg-gray-100 p-3'><a target='_blank' href='".$repo->url."'>" . $repo->url. "</a></td>";
-                  echo "<td class='border-grey-light border hover:bg-gray-100 p-3'>". $repo->author ."</td>";
-                  echo "<td class='border-grey-light border hover:bg-gray-100 p-3'>". $repo->avatar ."</td>";
-                  echo "<td class='border-grey-light border hover:bg-gray-100 p-3 sort_stars'>". $repo->stars ."</td>";
-                  echo "<td class='border-grey-light border hover:bg-gray-100 p-3 sort_current'>". $repo->currentPeriodStars ."</td>";
+                  echo "<td data-label='name' class='border-gray-200 border hover:bg-gray-100 p-3'>" . $repo->name ."</td>";
+                  echo "<td data-label='Url' class='border-gray-200 border hover:bg-gray-100 p-3'><a target='_blank' href='".$repo->url."'>" . $repo->url. "</a></td>";
+                  echo "<td data-label='author' class='border-gray-200 border hover:bg-gray-100 p-3'>". $repo->author ."</td>";
+                  echo "<td data-label='avatar' class='border-gray-200 border hover:bg-gray-100 p-3'>". $repo->avatar ."</td>";
+                  echo "<td data-label='stars' class='border-gray-200 border hover:bg-gray-100 p-3 sort_stars'>". $repo->stars ."</td>";
+                  echo "<td data-label='current period stars' class='border-gray-200 border hover:bg-gray-100 p-3 sort_current'>". $repo->currentPeriodStars ."</td>";
 //                      echo "<td class='border px-4 py-2'>". $repo->description ."</td>";
                 echo "</tr>";
               }

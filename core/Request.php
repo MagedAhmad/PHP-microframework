@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+
 class Request {
 
     /**
@@ -60,7 +61,12 @@ class Request {
             $this->parameters = explode('&', $url);
             array_map(function ($arg){
                 $temp = explode('=', $arg);
-                $this->params[$temp[0]] = $temp[1];
+                if(!isset($this->params[$temp[0]])) {
+                    return;
+                }else {
+                    $this->params[$temp[0]] = $temp[1];
+                }
+
             }, $this->parameters);
             return $this->params;
         }

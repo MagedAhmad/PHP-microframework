@@ -4,31 +4,34 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/main.css">
+<!--    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="/public/css/output.css">
     <title>Trending Repositories</title>
 </head>
 <body class="flex items-center justify-center tracking-wider leading-normal" style="background: #edf2f7;">
 <div class="font-sans bg-grey-lighter flex flex-col min-h-screen w-full">
   <div>
-    <div class="bg-blue-600">
-      <div class="container mx-auto px-2">
-        <div class="flex items-center md:justify-between py-4">
-          <div class="w-1/4 md:hidden">
-            <svg class="fill-current text-white h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M16.4 9H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1zm0 4H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1zM3.6 7h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1z"/></svg>
-          </div>
-          <div class="w-1/2 md:w-auto text-center text-white text-2xl font-extrabold">
-            Trending Repostitories
-          </div>
-          <div class="w-1/4 md:w-auto md:flex text-right">
-
-            <div class="hidden md:block md:flex md:items-center ml-2">
-              <span class="text-white text-sm mr-1"><a style="text-decoration:none; color:white" target="_blank" href="https://github.com/MagedAhmad/PHP-microframework">Project on Github</a></span>
-            </div>
-          </div>
-        </div>
+    <nav class="flex items-center justify-between flex-wrap bg-blue-600 p-6">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight">Trending Repositories</span>
       </div>
-    </div>
+      <div class="block lg:hidden">
+        <button  onclick="toggle()" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+      </div>
+      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden" id="menu">
+        <div class="text-sm lg:flex-grow">
+          <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            Docs
+          </a>
+          <a href="https://github.com/MagedAhmad/PHP-microframework" target="_blank" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+            Project on Github
+          </a>
+        </div>
+
+      </div>
+    </nav>
     <div class="hidden bg-blue-dark md:block md:bg-white md:border-b">
       <div class="container mx-auto px-4">
         <div class="md:flex">
