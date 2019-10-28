@@ -11444,22 +11444,43 @@ i {
   -webkit-transform: rotate(45deg);
 }
 
-@media (min-width: 640px) {
+@media screen and (max-width: 600px) {
   table {
-    display: inline-table !important;
+    border: 0;
   }
 
-  thead tr:not(:first-child) {
+  table thead {
     display: none;
   }
-}
 
-td:not(:last-child) {
-  border-bottom: 0;
-}
+  table tr {
+    margin-bottom: 30px;
+    display: block;
+    border-bottom: 2px solid #7f9cf5;
+  }
 
-th:not(:last-child) {
-  border-bottom: 2px solid rgba(0, 0, 0, .1);
+  table td {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    padding-top:10px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  tbody{
+    line-height:0!important;
+  }
 }
 
 @media (min-width: 640px) {
@@ -54565,7 +54586,6 @@ th:not(:last-child) {
     z-index: auto;
   }
 }
-
 
 
 
