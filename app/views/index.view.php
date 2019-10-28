@@ -3,7 +3,7 @@
 
           <div class="border flex justify-center ">
               <form action="/" method="GET">
-                <div class="flex my-4 mx-2">
+                <div class="flex flex-col md:flex-row my-4 mx-2">
                   <div class="relative mx-2">
 
                     <select name="provider" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
