@@ -40,7 +40,7 @@ class PaginatorTest extends TestCase
     public function test_get_next_page_if_current_page_is_set() {
         $current_page = $_GET['page'] = 4;
         $this->paginator->setPages();
-        $this->assertEquals(.
+        $this->assertEquals(
             $current_page + 1,
             $this->paginator->pagination['next_page']
         );
