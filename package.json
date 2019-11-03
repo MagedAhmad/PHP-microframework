@@ -1,0 +1,9 @@
+{
+  "name" : "Trending Repositories",
+  "description" : "A website to Fetch trending repositories on any given language",
+  "homepage" : "http://trending.maged-raslan.com/",
+  "author" : "Maged Raslan <maged.ahmed10@hotmail.com>",
+  "contributors" : ["Vlad Bilokur <vladimino@gmail.com>"],
+  "dependencies" : [],
+  "repository" : {"type": "git", "url": "https://github.com/MagedAhmad/PHP-microframework.git"},
+}
