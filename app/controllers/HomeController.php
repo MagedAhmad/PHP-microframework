@@ -11,7 +11,6 @@ class HomeController {
 
 
     public function home(){
-
     	// Get trending repositories
     	$args = $this->getArgs();
         $repos = Trending::fetch($args);
