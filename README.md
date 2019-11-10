@@ -6,6 +6,7 @@ A micro PHP-OOP framework, follows mvc pattern .
 * Rename .config.Example.php to .config.php
 * Enter your database info in .config.php
 * run `composer install`
+* run `npm install`
 
 You are ready to go ..
 
