@@ -4,7 +4,7 @@ php:
   - 7.2
 
 before_script:
-  - cp config.Example.php config.php
+  - cp config/config.Example.php config/config.php
   - composer self-update
   - composer install --no-interaction
 
