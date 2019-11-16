@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Core\Trending;
+use TrendingRepos\Core\Trending;
 use PHPUnit\Framework\TestCase;
 
 class TrendingTest extends TestCase
