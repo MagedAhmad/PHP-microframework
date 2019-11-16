@@ -23,10 +23,11 @@ $router->post('/users', 'UserController@store');
 
 Using command line enter 
 ````
-./project.php controller <controllername>
+./bin/console.php controller <controller-name>
+
 ````
 
-this will create a controller called ``app/controllers/<controllername>.php``
+this will create a controller in ``src/Controller/<controller-name>.php``
 
 
 ### Trending Repositories Feature
