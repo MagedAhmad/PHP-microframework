@@ -3,7 +3,7 @@
 
 function view($page, $data = []) {
     extract($data);
-    require "app/views/{$page}.view.php";
+    require "../app/views/{$page}.view.php";
 }
 
 

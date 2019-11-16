@@ -1,4 +1,4 @@
-<?php include('app/views/partials/header.view.php') ?>
+<?php include('../app/views/partials/header.view.php') ?>
 
 
           <div class="border flex justify-center ">
@@ -135,5 +135,5 @@
       <script src="/public/js/main.js"></script>
 
 
-<?php include('app/views/partials/footer.view.php') ?>
+<?php include('../app/views/partials/footer.view.php') ?>
 
