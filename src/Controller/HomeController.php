@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Controllers;
+namespace TrendingRepos\Controller;
 
-use App\Core\App;
-
-use App\Core\Paginator;
-use App\Core\Trending;
+use TrendingRepos\App;
+use TrendingRepos\Core\Paginator;
+use TrendingRepos\Core\Trending;
 
 class HomeController {
-
-
     public function home(){
-
     	// Get trending repositories
     	$args = $this->getArgs();
         $repos = Trending::fetch($args);
@@ -32,7 +28,6 @@ class HomeController {
     * return array
     */
     public function getArgs() {
-
         $config =  App::get('config')['Api'];
 
         $provider = (isset($_GET['provider'])) ? $_GET['provider'] : $config['provider'];
@@ -45,10 +40,4 @@ class HomeController {
         	'since' => $since
         ];
     }
-
-
-
-
-
-
 }

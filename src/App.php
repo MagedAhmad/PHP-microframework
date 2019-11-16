@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Core;
+namespace TrendingRepos;
 
 class App {
 
     /**
      * @var array
      */
-    protected static $registery = [];
+    protected static $registry = [];
 
 
     /**
@@ -15,8 +15,7 @@ class App {
      * @param $value
      */
     public static function bind($key, $value) {
-
-        static::$registery[$key] = $value;
+        static::$registry[$key] = $value;
     }
 
     /**
@@ -25,11 +24,11 @@ class App {
      */
     public static function get($key) {
 
-        if(!array_key_exists($key, static::$registery)) {
+        if(!array_key_exists($key, static::$registry)) {
             throw new \Exception("No {$key} is bound in the container");
         }
 
-        return static::$registery[$key];
+        return static::$registry[$key];
     }
 
 }

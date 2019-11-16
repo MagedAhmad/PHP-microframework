@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Core;
-
+namespace TrendingRepos\Core;
 
 class Request {
 
