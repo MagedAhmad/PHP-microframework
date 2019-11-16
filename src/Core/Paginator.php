@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Core;
+namespace TrendingRepos\Core;
 
 
 class Paginator
@@ -36,6 +36,7 @@ class Paginator
         $this->pagination['prev_page'] = $this->pagination['current_page'] - 1 ;
         $this->pagination['next_page'] = $this->pagination['current_page'] + 1 ;
     }
+
     /**
      *  get the current page number
      * @return int|mixed
@@ -63,7 +64,6 @@ class Paginator
         }
     }
 
-
     /**
      * Check if there is a next page
      * @return bool
@@ -71,7 +71,6 @@ class Paginator
     public function next() {
         return ($this->pagination['next_page'] != ($this->pagination['total_pages']+1));
     }
-
 
     /**
      * Check if there is a previous page
@@ -81,7 +80,6 @@ class Paginator
         return ($this->pagination['prev_page'] != 0);
 
     }
-
 
     /**
      * Get previous page url
@@ -110,8 +108,6 @@ class Paginator
         return ceil($records_number / $limit);
     }
 
-    
-
     /**
      * @return string
      */
@@ -133,8 +129,4 @@ class Paginator
             return $url . "?page=";
         }
     }
-
-
-
-
 }

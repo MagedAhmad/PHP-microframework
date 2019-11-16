@@ -1,25 +1,23 @@
 <?php
 
+namespace TrendingRepos\Database;
 
 class QueryBuilder {
-
     public $pdo;
 
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-
     public function selectAll($table) {
         $query = $this->pdo->prepare("select * from {$table}");
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);
 
-}
+        return $query->fetchAll(\PDO::FETCH_OBJ);
+    }
 
     public function insert($table, $parameters) {
-
         $keys = implode(', ',array_keys($parameters));
         $values = ':' . implode(', :', array_keys($parameters));
         $sql = "INSERT INTO {$table} ($keys) VALUES ($values)";
@@ -27,11 +25,8 @@ class QueryBuilder {
         try {
             $query = $this->pdo->prepare($sql);
             $query->execute($parameters);
-        }catch (Exception $e) {
+        }catch (\Exception $e) {
             die('something went wrong!');
         }
-
     }
-
-
 }

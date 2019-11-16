@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Core;
-
-use App\Core\Request;
+namespace TrendingRepos\Core;
 
 class Router {
-
     public $routes = [
         'GET' => [],
         'POST' => []
@@ -16,9 +13,7 @@ class Router {
         require $file;
 
         return $router;
-
     }
-
 
     public function get($uri, $controller) {
         $parameters = (new Request)->parameters();
@@ -28,17 +23,13 @@ class Router {
             }
             $uri = trim($uri, '/?');
 
-
            if($uri  == null) {
                $uri = '';
            }
-
         }
+
         $this->routes['GET'][$uri] = $controller;
-
     }
-
-
 
     public function post($uri, $controller) {
         $this->routes['POST'][$uri] = $controller;
@@ -57,9 +48,8 @@ class Router {
         return view('404');
     }
 
-
     public function callAction($controller, $action){
-        $controller = "App\\Controllers\\{$controller}";
+        $controller = "TrendingRepos\\Controller\\{$controller}";
         $controller = new $controller;
 
         if(! method_exists($controller, $action)){
@@ -68,5 +58,4 @@ class Router {
 
         return (new $controller)->$action();
     }
-
 }

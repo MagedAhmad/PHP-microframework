@@ -1,4 +1,4 @@
-<?php include('../app/views/partials/header.view.php') ?>
+<?php include('partials/header.view.php') ?>
 
 
           <div class="border flex justify-center ">
@@ -8,7 +8,7 @@
 
                     <select name="provider" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
 
-                        <?php foreach(App\Core\Trending::FetchProviders() as $prov) { ?>
+                        <?php foreach(TrendingRepos\Core\Trending::FetchProviders() as $prov) { ?>
 
                             <option <?php if ($args['provider'] == $prov) echo 'selected'; ?>
                                     value="<?php echo $prov ?>"><?php echo $prov ?></option>
@@ -40,7 +40,7 @@
                     <select name="language" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
 
 
-                        <?php foreach(App\Core\Trending::FetchLanguages() as $lang) { ?>
+                        <?php foreach(TrendingRepos\Core\Trending::FetchLanguages() as $lang) { ?>
 
                             <option <?php if ($args['language'] == $lang->name) echo 'selected'; ?>
                                     value="<?php echo $lang->name ?>"><?php echo $lang->name ?></option>
@@ -132,8 +132,8 @@
 
 
 
-      <script src="/public/js/main.js"></script>
+      <script src="js/main.js"></script>
 
 
-<?php include('../app/views/partials/footer.view.php') ?>
+<?php include('partials/footer.view.php') ?>
 

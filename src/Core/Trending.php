@@ -1,12 +1,9 @@
 <?php
 
-
-namespace App\Core;
-
+namespace TrendingRepos\Core;
 
 class Trending
 {
-
     protected static $providers = [
       'github',
       'gitlab',
@@ -29,13 +26,7 @@ class Trending
         return self::$providers;
     }
 
-
     public static function url($args) {
         return "https://". $args['provider'] ."-trending-api.now.sh/repositories?language=".$args['language']."&since=". $args['since'];
     }
-
-
-
-
-
 }

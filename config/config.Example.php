@@ -33,6 +33,4 @@ return [
         'language' => 'PHP',
         'since' => 'weekly'
     ]
-
 ];
-

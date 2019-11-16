@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Core\Paginator;
+use TrendingRepos\Core\Paginator;
 use PHPUnit\Framework\TestCase;
 
 class PaginatorTest extends TestCase

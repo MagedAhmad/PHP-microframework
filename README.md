@@ -3,7 +3,7 @@ A micro PHP-OOP framework, follows mvc pattern .
 
 ## Installation
 
-* Rename .config.Example.php to .config.php
+* Rename `config/.config.Example.php` to `config/.config.php`
 * Enter your database info in .config.php
 * run `composer install`
 * run `npm install`
@@ -11,7 +11,7 @@ A micro PHP-OOP framework, follows mvc pattern .
 You are ready to go ..
 
 ###### Routing 
-in ``app\routes.php`` define your routes as :
+in ``config\routes.php`` define your routes as :
 ``````
 $router->get('/', 'PagesController@home');
 ``````
