@@ -18,7 +18,7 @@ class CreateControllerCommand extends Command {
 
     public function configure() {
 
-        $this->setName('controller')
+        $this->setName('create:controller')
             ->setDescription('Create a new Controller')
             ->addArgument('name', InputArgument::REQUIRED, 'provide the controller name');
     }

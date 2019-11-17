@@ -23,7 +23,7 @@ $router->post('/users', 'UserController@store');
 
 Using command line enter 
 ````
-./bin/console.php controller <controller-name>
+php bin/console create:controller <controller-name>
 
 ````
 
