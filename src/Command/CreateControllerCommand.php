@@ -6,25 +6,16 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use GuzzleHttp\ClientInterface;
 
 class CreateControllerCommand extends Command {
 
-    private $client;
+    const CONTROLLER_DIRECTORY = 'src/Controller/';
 
-    /**
-     * controllerCommand constructor.
-     * @param ClientInterface $client
-     */
-    public function __construct(ClientInterface $client)
+    public function __construct()
     {
-        $this->client = $client;
         parent::__construct();
     }
 
-    /**
-     *
-     */
     public function configure() {
 
         $this->setName('controller')
@@ -35,55 +26,51 @@ class CreateControllerCommand extends Command {
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return vois
+     * 
      */
     public function execute(InputInterface $input, OutputInterface $output) {
 
             $className = $input->getArgument('name');
 
-            $name = $input->getArgument('name'). ".php";
+            $fileName = $className. '.php';
 
-            $this->checkIfFileExists($name, $output);
-
-            $this->buildController($name, $className);
-
-            $output->writeln("<info>Controller built successfully</info>");
-    }
-
-    /**
-     * @param $name
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    private function buildController($name, $className) {
-
-        // $response = $this->client->
-        //     request('GET', 'https://drive.google.com/uc?export=download&id=1ZzmJlq0pC35CvbEP0iLeFVyCpGMof18l')
-        //     ->getBody()->getContents();
-
-        $response = $this->controllerContent($className);
-
-        file_put_contents('src/Controller/'. $name, $response);
-
-    }
-
-    /**
-     * @param $name
-     * @param $output
-     */
-    private function checkIfFileExists($name, $output) {
-        $files = new \FilesystemIterator('src/Controller');
-        foreach($files as $file) {
-            if ($file->getFilename() == $name) {
-                $output->writeln("<error>Controller already exists!</error>");
+            if($this->checkIfFileExists($fileName)){
+                $output->writeln('<error>Controller already exists!</error>');
                 exit(1);
             }
-        }
+
+            $this->generateController($fileName, $className);
+
+            $output->writeln('<info>Controller built successfully</info>');
     }
 
+    private function generateController(string $fileName, string $className) {
 
+        $content = $this->generateControllerContent($className);
 
+        file_put_contents(self::CONTROLLER_DIRECTORY. $fileName, $content);
 
-    private function controllerContent($className) {
-        return "<?php \n\nnamespace TrendingRepos\Controller;\n\nclass " . $className . "{ \n\n}";
+    }
+
+    private function checkIfFileExists(string $fileName): bool {
+        $files = new \FilesystemIterator(self::CONTROLLER_DIRECTORY);
+        foreach($files as $file) {
+            if ($file->getFilename() === $fileName) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function generateControllerContent(string $className) {
+        return <<<EOT
+<?php 
+
+namespace TrendingRepos\Controller;
+
+class $className { 
+
+}
+EOT;
     }
 }

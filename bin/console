@@ -1,0 +1,13 @@
+#! /usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use TrendingRepos\Command\CreateControllerCommand;
+use Symfony\Component\Console\Application;
+
+$app = new Application('Trending Repos is under development', "1.0");
+
+$app->add(new CreateControllerCommand());
+
+$app->run();
