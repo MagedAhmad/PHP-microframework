@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateControllerCommand extends Command {
 
-    const CONTROLLER_DIRECTORY = 'src/Controller/';
+    const CONTROLLER_DIRECTORY = __DIR__ . '/../Controller/';
 
     public function __construct()
     {
