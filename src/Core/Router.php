@@ -21,10 +21,10 @@ class Router {
             if($this->uriExists()){
                 $this->direct($this->request->getSlug(), $this->request->methodType());
             }
-            throw new RouterException($this->request->getSlug() . ' is not a valid route!');
+            throw new RouterException('This is not the web page you are looking for!');
         }
         catch(RouterException $e) {
-            echo $e->getErrorMsg(); // replace with a way to display 404 page
+            echo $e->getErrorMsg();
         }
     }
 
@@ -34,8 +34,8 @@ class Router {
             return $this->callAction(
                 ...explode('@', $this->routes[$methodType][$uri])
             );
-        }catch( \RouterException $e) {
-            echo $e->getErrorMsg(); // replace with a way to display 404 page
+        }catch(RouterException $e) {
+            echo $e->getErrorMsg(); 
         }
     }
 
@@ -44,7 +44,7 @@ class Router {
         $controller = new $controller;
 
         if(! method_exists($controller, $action)){
-            throw new RouterException("This Action doesn't exist");
+            throw new RouterException('This action doesn\' exist!');
         }
 
         return (new $controller)->$action();
