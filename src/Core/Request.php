@@ -4,24 +4,10 @@ namespace TrendingRepos\Core;
 
 class Request {
 
-    /**
-     * @var array
-     */
     public $parameters = [];
-
-
-    /**
-     * Request parameters
-     * @var array
-     */
     public $params = [];
 
-
-    /**
-     * Request clearn uri
-     * @return mixed|string
-     */
-    public static function uri() {
+    public static function uri() : string {
         $uri = trim($_SERVER['REQUEST_URI'], '/');
 
         if(!empty($_SERVER['REQUEST_QUERY'])){
@@ -31,30 +17,18 @@ class Request {
         if(!empty($_SERVER['QUERY_STRING'])) {
             $uri= str_replace( $_SERVER['QUERY_STRING'], '', $uri );
         }
-
         $uri = trim($uri, '?');
 
-
         return $uri;
-
     }
 
+    public static function methodType() : string {
 
-    /**
-     * Return request method type
-     * @return mixed
-     */
-    public static function methodType() {
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    public function parameters() : array {
 
-    /**
-     * Return Request parameters
-     *
-     * @return array
-     */
-    public function parameters() {
         if(!empty($_SERVER['QUERY_STRING'])){
             $url = $_SERVER['QUERY_STRING'];
             $this->parameters = explode('&', $url);
@@ -67,12 +41,19 @@ class Request {
                 }
 
             }, $this->parameters);
+
             return $this->params;
         }
-
-
     }
 
+    public function getSlug() {
 
-
+        if(!empty($_SERVER['PATH_INFO'])){
+            $uri = $_SERVER['PATH_INFO'];
+        }else {
+            $uri = '/';
+        }
+        
+        return $uri;
+    }
 }

@@ -2,60 +2,55 @@
 
 namespace TrendingRepos\Core;
 
+use TrendingRepos\Core\Request;
+
 class Router {
-    public $routes = [
-        'GET' => [],
-        'POST' => []
-    ];
 
-    public static function load($file) {
-        $router = new static;
-        require $file;
+    public $routes;
+    public $request;
 
-        return $router;
+    public function __construct(array $routes)
+    {
+        $this->routes = $routes;
+        $this->request = new Request;
+        $this->get();
     }
 
-    public function get($uri, $controller) {
-        $parameters = (new Request)->parameters();
-        if(!empty($parameters)) {
-            foreach($parameters as $key => $value) {
-                $uri = trim($uri, $key . '=' . $value);
+    public function get() {
+        try {
+            if($this->uriExists()){
+                $this->direct($this->request->getSlug(), 'GET');
             }
-            $uri = trim($uri, '/?');
-
-           if($uri  == null) {
-               $uri = '';
-           }
+            throw new \InvalidArgumentException($this->request->getSlug() . ' is not a valid route!');
         }
-
-        $this->routes['GET'][$uri] = $controller;
+        catch(\InvalidArgumentException $e) {
+            echo $e->getMessage();
+        }
     }
 
-    public function post($uri, $controller) {
-        $this->routes['POST'][$uri] = $controller;
-    }
-
-    public function direct($uri, $methodType) {
-
-        if(array_key_exists($uri, $this->routes[$methodType])) {
-            $some = explode('@',$this->routes[$methodType][$uri]);
+    public function direct(string $uri, string $methodType) {
+        try {
 
             return $this->callAction(
                 ...explode('@', $this->routes[$methodType][$uri])
             );
-//            return $this->routes[$methodType][$uri];
+        }catch( \Exception $e) {
+            echo $e->getMessage();
         }
-        return view('404');
     }
 
-    public function callAction($controller, $action){
+    public function callAction(string $controller, string $action){
         $controller = "TrendingRepos\\Controller\\{$controller}";
         $controller = new $controller;
 
         if(! method_exists($controller, $action)){
-            throw new \Exception("This Action doesn't exit on the controller");
+            throw new \InvalidArgumentException("This Action doesn't exist");
         }
 
         return (new $controller)->$action();
+    }
+
+    private function uriExists() {
+        return key_exists($this->request->getSlug(), $this->routes['GET']);
     }
 }

@@ -2,7 +2,6 @@
 
 function view($page, $data = []) {
     extract($data);
-
     require "views/{$page}.view.php";
 }
 
