@@ -1,6 +1,7 @@
 <?php
 
 use TrendingRepos\App;
+use TrendingRepos\Core\Request;
 use TrendingRepos\Core\Router;
 use TrendingRepos\Database\Connection;
 use TrendingRepos\Database\QueryBuilder;
@@ -19,7 +20,7 @@ ini_set('display_errors', App::get('config')['env'] == 'development' ? 'On' : 'O
 //    Connection::make(App::get('config')['database'])
 //));
 
-$router = new Router(App::get('routes'));
+$router = new Router(App::get('routes'), new Request);
 
 // Router::load('../config/routes.php')
 //    ->direct(Request::uri(), Request::methodType());

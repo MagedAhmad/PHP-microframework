@@ -22,7 +22,7 @@ class Request {
         return $uri;
     }
 
-    public static function methodType() : string {
+    public function methodType() : string {
 
         return $_SERVER['REQUEST_METHOD'];
     }
@@ -46,7 +46,7 @@ class Request {
         }
     }
 
-    public function getSlug() {
+    public function getSlug() : string {
 
         if(!empty($_SERVER['PATH_INFO'])){
             $uri = $_SERVER['PATH_INFO'];

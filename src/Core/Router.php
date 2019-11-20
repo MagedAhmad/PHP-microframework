@@ -2,29 +2,29 @@
 
 namespace TrendingRepos\Core;
 
-use TrendingRepos\Core\Request;
+use TrendingRepos\Exceptions\RouterException;
 
 class Router {
 
     public $routes;
     public $request;
 
-    public function __construct(array $routes)
+    public function __construct(array $routes, $request)
     {
         $this->routes = $routes;
-        $this->request = new Request;
+        $this->request = $request;
         $this->get();
     }
 
     public function get() {
         try {
             if($this->uriExists()){
-                $this->direct($this->request->getSlug(), 'GET');
+                $this->direct($this->request->getSlug(), $this->request->methodType());
             }
-            throw new \InvalidArgumentException($this->request->getSlug() . ' is not a valid route!');
+            throw new RouterException($this->request->getSlug() . ' is not a valid route!');
         }
-        catch(\InvalidArgumentException $e) {
-            echo $e->getMessage();
+        catch(RouterException $e) {
+            echo $e->getErrorMsg(); // replace with a way to display 404 page
         }
     }
 
@@ -34,8 +34,8 @@ class Router {
             return $this->callAction(
                 ...explode('@', $this->routes[$methodType][$uri])
             );
-        }catch( \Exception $e) {
-            echo $e->getMessage();
+        }catch( \RouterException $e) {
+            echo $e->getErrorMsg(); // replace with a way to display 404 page
         }
     }
 
@@ -44,13 +44,13 @@ class Router {
         $controller = new $controller;
 
         if(! method_exists($controller, $action)){
-            throw new \InvalidArgumentException("This Action doesn't exist");
+            throw new RouterException("This Action doesn't exist");
         }
 
         return (new $controller)->$action();
     }
 
-    private function uriExists() {
+    private function uriExists() : bool {
         return key_exists($this->request->getSlug(), $this->routes['GET']);
     }
 }
