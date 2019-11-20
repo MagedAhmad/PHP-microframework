@@ -20,8 +20,9 @@ class Router {
         try {
             if($this->uriExists()){
                 $this->direct($this->request->getSlug(), $this->request->methodType());
+            }else {
+                throw new RouterException('This is not the web page you are looking for!');
             }
-            throw new RouterException('This is not the web page you are looking for!');
         }
         catch(RouterException $e) {
             echo $e->getErrorMsg();
