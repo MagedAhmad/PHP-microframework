@@ -1,7 +1,7 @@
 <?php
 
-function view($page, $errors = []) {
-    extract($errors);
+function view(string $page, array $templateVars = []) {
+    extract($templateVars);
     require "views/{$page}.view.php";
 }
 

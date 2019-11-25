@@ -1,8 +1,8 @@
 <?php
 
 return $routes = [
-            'GET' => [
-                '/' => 'HomeController@home',
-            ],
-            'POST' => [],
-        ];
+    'GET' => [
+        '/' => 'HomeController@home',
+    ],
+    'POST' => [],
+];

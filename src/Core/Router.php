@@ -2,56 +2,48 @@
 
 namespace TrendingRepos\Core;
 
-use TrendingRepos\Exceptions\RouterException;
+use TrendingRepos\Exception\RouterException;
+use TrendingRepos\Core\Request;
 
 class Router {
 
     public $routes;
     public $request;
 
-    public function __construct(array $routes, $request)
+    public function __construct(array $routes, Request $request)
     {
         $this->routes = $routes;
         $this->request = $request;
-        $this->get();
     }
 
     public function get() {
-        try {
-            if($this->uriExists()){
-                $this->direct($this->request->getSlug(), $this->request->methodType());
-            }else {
-                throw new RouterException('This is not the web page you are looking for!');
-            }
-        }
-        catch(RouterException $e) {
-            echo $e->getErrorMsg();
+        $slug = $this->request->getSlug();
+        if($this->uriExists($slug)){
+            $this->direct($this->request->getSlug(), $this->request->methodType());
+        }else {
+            throw new RouterException('This is not the web page you are looking for!');
         }
     }
 
-    public function direct(string $uri, string $methodType) {
-        try {
+    protected function direct(string $uri, string $methodType) {
 
-            return $this->callAction(
-                ...explode('@', $this->routes[$methodType][$uri])
-            );
-        }catch(RouterException $e) {
-            echo $e->getErrorMsg(); 
-        }
+        $this->callAction(
+            ...explode('@', $this->routes[$methodType][$uri])
+        );
     }
 
-    public function callAction(string $controller, string $action){
+    private function callAction(string $controller, string $action){
         $controller = "TrendingRepos\\Controller\\{$controller}";
         $controller = new $controller;
 
-        if(! method_exists($controller, $action)){
+        if(!method_exists($controller, $action)) {
             throw new RouterException('This action doesn\' exist!');
         }
 
-        return (new $controller)->$action();
+        (new $controller)->$action();
     }
 
-    private function uriExists() : bool {
-        return key_exists($this->request->getSlug(), $this->routes['GET']);
+    private function uriExists($slug) : bool {
+        return array_key_exists($slug, $this->routes[$this->request->methodType()]);
     }
 }
