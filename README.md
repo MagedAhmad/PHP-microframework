@@ -30,6 +30,16 @@ php bin/console create:controller <controller-name>
 
 this will create a controller in ``src/Controller/<controller-name>.php``
 
+###### Genrate tests 
+
+Using command line enter 
+````
+php bin/console create:test <testClass-name>
+````
+
+this will create a test in ``test/<testClass-name>.php``
+
+
 ### Trending Repositories Feature
 
 ---
