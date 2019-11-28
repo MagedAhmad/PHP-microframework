@@ -17,16 +17,20 @@ class Router {
     }
 
     public function get() {
-        $slug = $this->request->getSlug();
-        if($this->uriExists($slug)){
-            $this->direct($this->request->getSlug(), $this->request->methodType());
+        if(array_key_exists($this->request->methodType(), $this->routes)) {
+            $slug = $this->request->getSlug();
+
+            if($this->uriExists($slug)){
+                $this->direct($this->request->getSlug(), $this->request->methodType());
+            }else {
+                throw new RouterException('This is not the web page you are looking for!');
+            }
         }else {
-            throw new RouterException('This is not the web page you are looking for!');
+            throw new RouterException('Routes file structure in not as we expect');
         }
     }
 
-    protected function direct(string $uri, string $methodType) {
-
+    private function direct(string $uri, string $methodType) {
         $this->callAction(
             ...explode('@', $this->routes[$methodType][$uri])
         );
