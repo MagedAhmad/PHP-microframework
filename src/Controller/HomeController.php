@@ -16,7 +16,7 @@ class HomeController {
         $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $offset);
-        Flash::set('danger', 'Some message to say');
+        Flash::set('success', 'Some message to say');
         return view('index', compact('repos', 'paginator', 'args'));
     }
 
