@@ -1,3 +1,8 @@
+window.onload = setTimeout(function() { 
+  document.getElementById("flash").style.display=" none";
+}, 3000);
+
+
 
     function sortStarsDown() {
       let table, rows, switching, i, x, y, shouldSwitch, dir, element;

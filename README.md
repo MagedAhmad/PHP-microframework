@@ -52,3 +52,11 @@ $paginator = new Paginator();
 
 $paginator->get($records, $limit);
 ```
+
+### Flash messages
+
+Simply fire a flash message with 
+```
+Flash::set($type, $message)
+```
+Supported types for now `success`| `danger` 
