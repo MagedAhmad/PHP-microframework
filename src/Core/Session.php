@@ -5,7 +5,10 @@ namespace TrendingRepos\Core;
 class Session {
     public function __construct()
     {
-        session_start();
+        if($this->isStarted())
+        { 
+            session_start(); 
+        } 
     }
 
     public function isStarted(): bool
