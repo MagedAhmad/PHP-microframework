@@ -5,7 +5,8 @@ namespace TrendingRepos\Controller;
 use TrendingRepos\App;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
-use TrendingRepos\Core\Flash;
+use TrendingRepos\Core\Session;
+
 class HomeController {
     public function home(){
     	// Get trending repositories
@@ -16,7 +17,7 @@ class HomeController {
         $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $offset);
-        Flash::set('success', 'Some message to say');
+        
         return view('index', compact('repos', 'paginator', 'args'));
     }
 
