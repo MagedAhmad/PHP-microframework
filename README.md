@@ -55,8 +55,9 @@ $paginator->get($records, $limit);
 
 ### Flash messages
 
-Simply fire a flash message with 
+Simply fire a flash message usings sessions
 ```
-Flash::set($type, $message)
+$flash = new TrendingRepos\Core\Session;
+$flash->set('success', 'Some message to display!');
 ```
 Supported types for now `success`| `danger` 

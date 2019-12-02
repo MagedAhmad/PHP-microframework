@@ -17,7 +17,7 @@ class HomeController {
         $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $offset);
-        
+
         return view('index', compact('repos', 'paginator', 'args'));
     }
 
