@@ -60,4 +60,4 @@ Simply fire a flash message usings sessions
 $flash = new TrendingRepos\Core\Session;
 $flash->set('success', 'Some message to display!');
 ```
-Supported types for now `success`| `danger` 
+Supported types for now `success`| `danger` | `info`
