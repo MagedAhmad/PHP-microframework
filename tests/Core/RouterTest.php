@@ -13,8 +13,12 @@ class RouterTest extends TestCase
 
     public function setUp(): void
     {
-        $routes = require './config/routes.php';
-        $this->router = new Router($routes, new Request);
+        $this->router = new Router([], new Request);
+    }
+
+    public function test_init()
+    {
+        $this->assertInstanceOf('\\TrendingRepos\\Core\\Router', $this->router);
     }
 
     public function test_catch_exception_when_visiting_wrong_url()
