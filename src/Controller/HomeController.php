@@ -17,8 +17,11 @@ class HomeController {
         $paginator = new Paginator();
         $repos = $paginator->get($repos, $offset);
 
-        return view('index', compact('repos', 'paginator', 'args'));
-
+        return view('index', [
+            'repos' => $repos,
+            'paginator' => $paginator,
+            'args' => $args
+        ]);
     }
 
     /*
