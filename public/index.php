@@ -19,6 +19,7 @@ $router = new Router(App::get('routes'), new Request);
 try {
     $router->get();
 }catch(RouterException $e) {
-    $templateVars['error'] = $e->getMessage();
-    return view('404', $templateVars);
+    view('404', [
+        'error' => $e->getMessage()
+    ]);
 }

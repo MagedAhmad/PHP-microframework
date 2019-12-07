@@ -8,31 +8,20 @@ use TrendingRepos\Core\Trending;
 
 class HomeController {
     public function home(){
-    	// Get trending repositories
-    	$args = $this->getArgs();
-        $repos = Trending::fetch($args);
-
-        // pagination
+        $content = Trending::fetch($this->getArgs());
         $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
-        $paginator = new Paginator();
-        $repos = $paginator->get($repos, $offset);
+        $paginator = new Paginator;
+        $repos = $paginator->get($content, $offset);
 
         return view('index', [
             'repos' => $repos,
             'paginator' => $paginator,
-            'args' => $args
+            'args' => $this->getArgs()
         ]);
     }
 
-    /*
-    * Get Trending Arguments 
-    * Provider - Language - Since 
-    * 
-    * return array
-    */
     public function getArgs() {
         $config =  App::get('config')['Api'];
-
         $provider = (isset($_GET['provider'])) ? $_GET['provider'] : $config['provider'];
         $language = (isset($_GET['language'])) ? $_GET['language'] :  $config['language'];
         $since = (isset($_GET['since'])) ? $_GET['since'] : $config['since'];

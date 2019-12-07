@@ -2,27 +2,23 @@
 
 namespace TrendingRepos\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateTestCommand extends Command {
-
+class CreateTestCommand extends CreateCommand 
+{
     const TEST_DIRECTORY = __DIR__ . '/../../tests/';
 
-    public function configure() {
+    public function configure() 
+    {
         $this->setName('create:test')
             ->setDescription('Create a new Test')
             ->addArgument('name', InputArgument::REQUIRED, 'provide the test name');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * 
-     */
-    public function execute(InputInterface $input, OutputInterface $output) {
+    public function execute(InputInterface $input, OutputInterface $output) 
+    {
             $className = $input->getArgument('name');
             $fileName = $className. '.php';
             
@@ -30,19 +26,18 @@ class CreateTestCommand extends Command {
                 $output->writeln('<error>Test already exists!</error>');
                 exit(1);
             }
-
-            $this->generateTest($fileName, $className);
-
+            $this->generateFile($fileName, $className);
             $output->writeln('<info>Test file built successfully</info>');
     }
 
-    private function generateTest(string $fileName, string $className) {
-        $content = $this->generateTestContent($className);
-        
+    protected function generateFile(string $fileName, string $className) 
+    {
+        $content = $this->generateFileContent($className);
         file_put_contents(self::TEST_DIRECTORY. $fileName, $content);
     }
 
-    private function checkIfFileExists(string $fileName): bool {
+    protected function checkIfFileExists(string $fileName): bool
+    {
         $files = new \FilesystemIterator(self::TEST_DIRECTORY);
 
         foreach($files as $file) {
@@ -55,7 +50,8 @@ class CreateTestCommand extends Command {
         return false;
     }
 
-    private function generateTestContent(string $className): string {
+    protected function generateFileContent(string $className): string
+    {
         return <<<EOT
 <?php
 
