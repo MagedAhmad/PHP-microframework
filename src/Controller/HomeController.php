@@ -6,8 +6,10 @@ use TrendingRepos\App;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
 
-class HomeController {
-    public function home(){
+class HomeController 
+{
+    public function home()
+    {
         $content = Trending::fetch($this->getArgs());
         $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
         $paginator = new Paginator;
@@ -20,11 +22,12 @@ class HomeController {
         ]);
     }
 
-    public function getArgs() {
+    public function getArgs(): array
+    {
         $config =  App::get('config')['Api'];
-        $provider = (isset($_GET['provider'])) ? $_GET['provider'] : $config['provider'];
-        $language = (isset($_GET['language'])) ? $_GET['language'] :  $config['language'];
-        $since = (isset($_GET['since'])) ? $_GET['since'] : $config['since'];
+        $provider = $_GET['provider'] ?? $config['provider'];
+        $language = $_GET['language'] ?? $config['language'];
+        $since = $_GET['since'] ?? $config['since'];
 
         return [
         	'provider' => $provider, 

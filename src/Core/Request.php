@@ -4,7 +4,7 @@ namespace TrendingRepos\Core;
 
 class Request 
 {
-    public function methodType(): string 
+    public function getMethodType(): string 
     {
         return $_SERVER['REQUEST_METHOD'];
     }

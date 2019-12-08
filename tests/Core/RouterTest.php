@@ -12,12 +12,17 @@ class RouterTest extends TestCase
     public function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
-        $this->router = new Router(['GET' => []], $this->request);
     }
 
     public function test_catch_exception_when_visiting_wrong_url()
     {
         $this->expectExceptionMessage('This is not the web page you are looking for!');
+        $routes = [
+            'GET' => [
+                '/' => 'HomeController@index',
+            ]
+        ];
+        $this->router = new Router($routes, $this->request);
         $this->get('/wrong-url');
         $this->router->get();
     }
@@ -57,7 +62,7 @@ class RouterTest extends TestCase
     {
         $this->request->method('getSlug')
             ->willReturn($uri);
-        $this->request->method('methodType')
+        $this->request->method('getMethodType')
             ->willReturn($methodType);
     }
 }

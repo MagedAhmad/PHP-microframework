@@ -27,8 +27,8 @@ class Paginator
 
         $this->pagination['total_pages'] = $this->getPages(count($records), $limit);
         $this->setPages();
-        return array_slice($records, $this->pagination['prev_page']*$limit, $limit);
 
+        return array_slice($records, $this->pagination['prev_page']*$limit, $limit);
     }
 
     public function setPages() {
