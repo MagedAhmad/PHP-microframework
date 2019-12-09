@@ -4,7 +4,6 @@ A service to show trending repositories on any given provider, Used a custom mic
 ## Installation
 
 * Rename `config/.config.Example.php` to `config/.config.php`
-* Enter your database info in .config.php
 * run `composer install`
 * run `npm install`
 
