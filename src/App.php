@@ -2,33 +2,50 @@
 
 namespace TrendingRepos;
 
-class App {
+use TrendingRepos\Exception\RouterException;
+use TrendingRepos\Core\Request;
+use TrendingRepos\Core\Router;
 
-    /**
-     * @var array
-     */
-    protected static $registry = [];
+class App 
+{
+    protected $environment = 'development';
+    public $registry = [];
+    protected $router;
 
-
-    /**
-     * @param $key
-     * @param $value
-     */
-    public static function bind($key, $value) {
-        static::$registry[$key] = $value;
+    public function __construct()
+    {
+        $this->setErrorReporting();
+        $this->loadConfigFile();  
+        $this->loadRouter();  
     }
 
-    /**
-     * @param $key
-     * @return mixed
-     */
-    public static function get($key) {
-
-        if(!array_key_exists($key, static::$registry)) {
-            throw new \Exception("No {$key} is bound in the container");
+    public function run()
+    {
+        try {
+            $this->router->get();
+        }catch(RouterException $e) {
+            view('404', [
+                'error' => $e->getMessage()
+            ]);
         }
-
-        return static::$registry[$key];
     }
 
+    public function setErrorReporting()
+    {
+        ini_set('error_reporting', E_ALL);
+        
+        ini_set('display_errors', $this->environment == 'development' ? 'On' : 'Off');
+    }
+
+    public function loadConfigFile()
+    {
+        $this->registry['config'] = require '../config/config.php'; 
+    }
+
+    public function loadRouter()
+    {
+        $this->registry['routes'] = require '../config/routes.php';
+
+        $this->router = new Router($this->registry['routes'], new Request);
+    }
 }

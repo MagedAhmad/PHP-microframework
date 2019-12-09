@@ -24,7 +24,7 @@ class HomeController
 
     public function getArgs(): array
     {
-        $config =  App::get('config')['Api'];
+        $config =  (new App)->registry['config']['Api'];
         $provider = $_GET['provider'] ?? $config['provider'];
         $language = $_GET['language'] ?? $config['language'];
         $since = $_GET['since'] ?? $config['since'];
