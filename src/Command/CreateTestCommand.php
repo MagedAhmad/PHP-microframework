@@ -17,7 +17,7 @@ class CreateTestCommand extends CreateCommand
             ->addArgument('name', InputArgument::REQUIRED, 'provide the test name');
     }
 
-    protected function generateFileContent(string $className): string
+    public function generateFileContent(string $className): string
     {
         return <<<EOT
 <?php

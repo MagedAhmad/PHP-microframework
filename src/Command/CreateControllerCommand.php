@@ -15,7 +15,7 @@ class CreateControllerCommand extends CreateCommand
             ->addArgument('name', InputArgument::REQUIRED, 'provide the controller name');
     }
 
-    protected function generateFileContent(string $className): string 
+    public function generateFileContent(string $className): string 
     {
         return <<<EOT
 <?php 

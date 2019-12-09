@@ -8,12 +8,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class CreateCommand extends Command
 {
+    abstract public function generateFileContent(string $className);
+
     public function execute(InputInterface $input, OutputInterface $output) 
     {
         $className = $input->getArgument('name');
         $fileName = $className. '.php';
         
-        if($this->checkIfFileExists($fileName)){
+        if($this->checkIfFileExists($fileName)) {
             $output->writeln('<error>File Already exists!</error>');
             exit(1);
         }
