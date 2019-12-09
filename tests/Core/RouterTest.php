@@ -61,14 +61,9 @@ class RouterTest extends TestCase
         $this->router->get();
     }
 
-    protected function get(string $uri)
+    private function get(string $uri)
     {
         $this->call($uri, 'GET');
-    }
-
-    protected function post(string $uri)
-    {
-        $this->call($uri, 'POST');
     }
 
     private function call(string $uri, string $methodType)
