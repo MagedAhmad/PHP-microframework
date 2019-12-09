@@ -2,7 +2,8 @@
 
 return $routes = [
     'GET' => [
-        '/' => 'HomeController@home'
+        '/' => 'HomeController@home',
+        '/ping' => 'HealthCheckController@ping',
     ],
     'POST' => [],
 ];
