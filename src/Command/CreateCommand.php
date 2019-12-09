@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class CreateCommand extends Command
 {
-    abstract public function generateFileContent(string $className);
+    abstract protected function generateFileContent(string $className);
 
     public function execute(InputInterface $input, OutputInterface $output) 
     {

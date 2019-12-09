@@ -3,8 +3,6 @@
 namespace TrendingRepos\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateTestCommand extends CreateCommand 
 {
@@ -17,7 +15,7 @@ class CreateTestCommand extends CreateCommand
             ->addArgument('name', InputArgument::REQUIRED, 'provide the test name');
     }
 
-    public function generateFileContent(string $className): string
+    protected function generateFileContent(string $className): string
     {
         return <<<EOT
 <?php
