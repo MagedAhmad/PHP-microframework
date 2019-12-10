@@ -4,7 +4,6 @@ A micro PHP-OOP framework, follows mvc pattern .
 ## Installation
 
 * Rename `config/.config.Example.php` to `config/.config.php`
-* Enter your database info in .config.php
 * run `composer install`
 * run `npm install`
 
