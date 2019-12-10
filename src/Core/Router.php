@@ -53,7 +53,7 @@ class Router
         return array_key_exists($slug, $this->routes[$this->request->getMethodType()]);
     }
 
-    protected function methodTypeExists()
+    protected function methodTypeExists(): bool
     {
         return array_key_exists($this->request->getMethodType(), $this->routes);
     }

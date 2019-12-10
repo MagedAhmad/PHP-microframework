@@ -37,7 +37,6 @@ abstract class CreateCommand extends Command
 
         foreach($files as $file) {
             if ($file->getFilename() === $fileName) {
-
                 return true;
             }
         }
