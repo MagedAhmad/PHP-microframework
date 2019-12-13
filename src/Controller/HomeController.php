@@ -5,6 +5,7 @@ namespace TrendingRepos\Controller;
 use TrendingRepos\App;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
+use TrendingRepos\Core\Page;
 
 class HomeController 
 {
@@ -14,8 +15,8 @@ class HomeController
         $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
         $paginator = new Paginator;
         $repos = $paginator->get($content, $offset);
-
-        return view('index', [
+        
+        echo (new Page())->view('index', [
             'repos' => $repos,
             'paginator' => $paginator,
             'args' => $this->getArgs()

@@ -5,13 +5,14 @@ namespace TrendingRepos;
 use TrendingRepos\Exception\RouterException;
 use TrendingRepos\Core\Request;
 use TrendingRepos\Core\Router;
+use TrendingRepos\Core\Page;
 
 class App 
 {
     protected $environment = 'development';
     public $registry = [];
     protected $router;
-
+    
     public function __construct()
     {
         $this->setErrorReporting();
@@ -24,7 +25,11 @@ class App
         try {
             $this->router->get();
         }catch(RouterException $e) {
-            view('404', [
+            echo (new Page)->view('404', [
+                'error' => $e->getMessage()
+            ]);
+        }catch(\Exception $e) {
+            echo (new Page)->view('404', [
                 'error' => $e->getMessage()
             ]);
         }
