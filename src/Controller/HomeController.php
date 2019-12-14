@@ -11,7 +11,7 @@ class HomeController
     public function home()
     {
         $content = Trending::fetch($this->getArgs());
-        $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
+        $offset = $_GET['offset'] ?? (new App)->registry['config']['offset'];
         $paginator = new Paginator;
         $repos = $paginator->get($content, $offset);
 
