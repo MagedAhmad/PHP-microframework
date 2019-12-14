@@ -1,4 +1,9 @@
 <?php
 
-$router->get('', 'HomeController@home');
-
+return $routes = [
+    'GET' => [
+        '/' => 'HomeController@home',
+        '/ping' => 'HealthCheckController@ping',
+    ],
+    'POST' => [],
+];

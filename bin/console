@@ -4,9 +4,11 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use TrendingRepos\Command\CreateControllerCommand;
+use TrendingRepos\Command\CreateTestCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application('Trending Repos is under development', "1.0");
 $app->add(new CreateControllerCommand());
+$app->add(new CreateTestCommand());
 
 $app->run();

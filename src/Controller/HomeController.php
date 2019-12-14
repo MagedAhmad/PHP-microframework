@@ -6,33 +6,28 @@ use TrendingRepos\App;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
 
-class HomeController {
-    public function home(){
-    	// Get trending repositories
-    	$args = $this->getArgs();
-        $repos = Trending::fetch($args);
+class HomeController 
+{
+    public function home()
+    {
+        $content = Trending::fetch($this->getArgs());
+        $offset = $_GET['offset'] ?? App::get('config')['offset'];
+        $paginator = new Paginator;
+        $repos = $paginator->get($content, $offset);
 
-        // pagination
-        $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 10;
-        $paginator = new Paginator();
-        $repos = $paginator->get($repos, $offset);
-
-        return view('index', compact('repos', 'paginator', 'args'));
-
+        return view('index', [
+            'repos' => $repos,
+            'paginator' => $paginator,
+            'args' => $this->getArgs()
+        ]);
     }
 
-    /*
-    * Get Trending Arguments 
-    * Provider - Language - Since 
-    * 
-    * return array
-    */
-    public function getArgs() {
+    public function getArgs(): array
+    {
         $config =  App::get('config')['Api'];
-
-        $provider = (isset($_GET['provider'])) ? $_GET['provider'] : $config['provider'];
-        $language = (isset($_GET['language'])) ? $_GET['language'] :  $config['language'];
-        $since = (isset($_GET['since'])) ? $_GET['since'] : $config['since'];
+        $provider = $_GET['provider'] ?? $config['provider'];
+        $language = $_GET['language'] ?? $config['language'];
+        $since = $_GET['since'] ?? $config['since'];
 
         return [
         	'provider' => $provider, 
