@@ -20,7 +20,7 @@ class RouterTest extends TestCase
         $routes = [
             'GET' => [
                 '/' => 'HomeController@index',
-            ]
+            ],
         ];
         $this->router = new Router($routes, $this->request);
         $this->get('/wrong-url');
@@ -33,7 +33,7 @@ class RouterTest extends TestCase
         $routes = [
             'GET' => [
                 '/test' => 'HomeController@test',
-            ]
+            ],
         ];
         $this->router = new Router($routes, $this->request);
         $this->get('/test');
@@ -48,17 +48,25 @@ class RouterTest extends TestCase
         $this->router->get();
     }
 
-    protected function get(string $uri)
+    public function test_no_exceptions_happen_with_correct_url()
+    {
+        $this->expectNotToPerformAssertions();
+        $routes = [
+            'GET' => [
+                '/ping' => 'HealthCheckController@ping',
+            ],
+        ];
+        $this->router = new Router($routes, $this->request);
+        $this->get('/ping');
+        $this->router->get();
+    }
+
+    private function get(string $uri)
     {
         $this->call($uri, 'GET');
     }
 
-    protected function post(string $uri)
-    {
-        $this->call($uri, 'POST');
-    }
-
-    private function call(string $uri, string $methodType) 
+    private function call(string $uri, string $methodType)
     {
         $this->request->method('getSlug')
             ->willReturn($uri);
