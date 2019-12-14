@@ -36,12 +36,12 @@ class Paginator
         }
     }
 
-    public function next(): bool
+    public function hasNext(): bool
     {
         return ($this->pagination['next_page'] != ($this->pagination['total_pages']+1));
     }
 
-    public function prev(): bool
+    public function hasPrev(): bool
     {
         return ($this->pagination['prev_page'] != 0);
     }
@@ -63,21 +63,18 @@ class Paginator
 
     public function Baseurl(): string
     {
-        if(!empty($_SERVER['QUERY_STRING']) && isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != "page=".$this->pagination['current_page']) {
+        if(preg_match('(.\?page=)', $_SERVER['REQUEST_URI'])) {
+            $url =  trim($_SERVER['REQUEST_URI'], '?page='. $this->pagination['current_page']);
 
-            if(strpos($_SERVER['QUERY_STRING'], '&page=' . $this->pagination['current_page'])) {
-                $url = trim($_SERVER['QUERY_STRING'], '&page='. $this->pagination['current_page']);
-                return '?' . $url . '&page=';
-            }
-            $url = $_SERVER['QUERY_STRING'];
-            return '?' . $url . '&page=' ;
-        }else {
-            if(isset($_SERVER['QUERY_STRING'])) {
-                $url = trim($_SERVER['QUERY_STRING'], '?page='. $this->pagination['current_page']);
-            }else {
-                $url = $_SERVER['REQUEST_URI'];
-            }
             return $url . "?page=";
         }
+        
+        if(preg_match('(.\&page=)', $_SERVER['REQUEST_URI']) OR preg_match('(.\&offset=)', $_SERVER['REQUEST_URI'])) {
+            $url = trim($_SERVER['REQUEST_URI'], '&page='. $this->pagination['current_page']);
+        
+            return $url . '&page=';
+        }
+
+        return '?page=' ;
     }
 }

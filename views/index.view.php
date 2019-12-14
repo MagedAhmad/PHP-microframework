@@ -112,7 +112,7 @@
           </table>
                   <!--     Start Pagination         -->
                 <ul class="flex justify-center font-sans">
-                     <?php if($paginator->prev()) { ?>
+                     <?php if($paginator->hasPrev()) { ?>
                          <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->prevUrl() ?>">Prev</a></li>
                      <?php }else { ?>
                          <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Previous</a></li>
@@ -121,7 +121,7 @@
                      <?php include('partials/links.view.php') ?>
 
 
-                      <?php if($paginator->next()) { ?>
+                      <?php if($paginator->hasNext()) { ?>
                          <li><a class="block hover:text-white hover:bg-blue-500 text-blue border-r border-grey-light px-3 py-2" href="<?php echo $paginator->nextUrl() ?>">Next</a></li>
                      <?php }else { ?>
                          <li><a class="block hover:text-black hover:bg-gray-500 text-black border-r border-grey-light px-3 py-2" href="#" aria-disabled="true">Next</a></li>
