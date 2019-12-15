@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use TrendingRepos\App;
 use TrendingRepos\Core\Router;
 use TrendingRepos\Core\Request;
 
@@ -8,10 +9,12 @@ class RouterTest extends TestCase
 {
     protected $router;
     protected $request;
+    protected $app;
 
     public function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
+        $this->app = $this->createMock(App::class);
     }
 
     public function test_catch_exception_when_visiting_wrong_url()
@@ -24,8 +27,7 @@ class RouterTest extends TestCase
         ];
         $this->router = new Router($routes, $this->request);
         $this->get('/wrong-url');
-    
-        $this->router->get();
+        $this->router->get($this->app);
     }
 
     public function test_catch_exception_when_method_in_controller_doesnt_exist()
@@ -38,8 +40,7 @@ class RouterTest extends TestCase
         ];
         $this->router = new Router($routes, $this->request);
         $this->get('/test');
-    
-        $this->router->get();
+        $this->router->get($this->app);
     }
 
     public function test_catch_exception_when_routes_file_is_in_wrong_format()
@@ -47,8 +48,7 @@ class RouterTest extends TestCase
         $this->expectExceptionMessage('Routes file structure in not as we expect');
         $this->router = new Router(['/' => 'HomeController@home'], $this->request);
         $this->get('/');
-    
-        $this->router->get();
+        $this->router->get($this->app);
     }
 
     public function test_no_exceptions_happen_with_correct_url()
@@ -61,8 +61,7 @@ class RouterTest extends TestCase
         ];
         $this->router = new Router($routes, $this->request);
         $this->get('/ping');
-    
-        $this->router->get();
+        $this->router->get($this->app);
     }
 
     private function get(string $uri)

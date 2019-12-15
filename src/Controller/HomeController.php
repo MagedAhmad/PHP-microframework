@@ -8,10 +8,17 @@ use TrendingRepos\Core\Trending;
 
 class HomeController 
 {
+    protected $app;
+
+    public function __construct(App $app)
+    {
+        $this->app = $app;
+    }
+
     public function home()
     {
         $content = Trending::fetch($this->getArgs());
-        $offset = $_GET['offset'] ?? (new App)->registry['config']['offset'];
+        $offset = $_GET['offset'] ?? $this->app->registry['config']['offset'];
         $paginator = new Paginator;
         $repos = $paginator->get($content, $offset);
 
@@ -24,7 +31,7 @@ class HomeController
 
     public function getArgs(): array
     {
-        $config =  (new App)->registry['config']['Api'];
+        $config =  $this->app->registry['config']['Api'];
         $provider = $_GET['provider'] ?? $config['provider'];
         $language = $_GET['language'] ?? $config['language'];
         $since = $_GET['since'] ?? $config['since'];

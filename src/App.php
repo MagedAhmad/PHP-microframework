@@ -8,9 +8,9 @@ use TrendingRepos\Core\Router;
 
 class App 
 {
-    protected $environment = 'development';
     public $registry = [];
-    protected $router;
+    private $environment = 'development';
+    private $router;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class App
     public function run()
     {
         try {
-            $this->router->get();
+            $this->router->get($this);
         }catch(RouterException $e) {
             view('404', [
                 'error' => $e->getMessage()
@@ -30,22 +30,22 @@ class App
         }
     }
 
-    public function setErrorReporting()
+    private function setErrorReporting()
     {
         ini_set('error_reporting', E_ALL);
         
         ini_set('display_errors', $this->environment == 'development' ? 'On' : 'Off');
     }
 
-    public function loadConfigFile()
+    private function loadConfigFile()
     {
         $this->registry['config'] = require '../config/config.php'; 
     }
 
-    public function loadRouter()
+    private function loadRouter()
     {
         $this->registry['routes'] = require '../config/routes.php';
 
-        $this->router = new Router($this->registry['routes'], new Request);
+        $this->router = new Router($this->registry['routes'], new Request());
     }
 }
