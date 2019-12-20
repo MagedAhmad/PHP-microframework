@@ -2,14 +2,12 @@
 
 namespace TrendingRepos\Core;
 
-use TrendingRepos\App;
 use TrendingRepos\Exception\RouterException;
 
 class Router 
 {
     public $routes;
     public $request;
-    public $app;
 
     public function __construct(array $routes, Request $request)
     {
@@ -17,10 +15,8 @@ class Router
         $this->request = $request;
     }
 
-    public function get(App $app) 
+    public function get() 
     {
-        $this->app = $app;
-
         if (!$this->methodTypeExists()) {
             throw new RouterException('Routes file structure in not as we expect');
         }
@@ -42,8 +38,8 @@ class Router
 
     private function callAction(string $controller, string $action)
     {
-        $controller = "TrendingRepos\\Controller\\{$controller}";
-        $controller = new $controller($this->app);
+        $controllerName = "TrendingRepos\\Controller\\{$controller}";
+        $controller = new $controllerName();
 
         if(!method_exists($controller, $action)) {
             throw new RouterException('This action doesn\'t exist!');

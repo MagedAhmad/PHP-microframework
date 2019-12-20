@@ -2,24 +2,16 @@
 
 namespace TrendingRepos\Controller;
 
-use TrendingRepos\App;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
 
-class HomeController 
+class HomeController extends Controller 
 {
-    protected $app;
-
-    public function __construct(App $app)
-    {
-        $this->app = $app;
-    }
-
     public function home()
     {
         $content = Trending::fetch($this->getArgs());
-        $offset = $_GET['offset'] ?? $this->app->registry['config']['offset'];
-        $paginator = new Paginator;
+        $offset = $_GET['offset'] ?? $this->registry['config']['offset'];
+        $paginator = new Paginator();
         $repos = $paginator->get($content, $offset);
 
         return view('index', [
@@ -31,7 +23,7 @@ class HomeController
 
     public function getArgs(): array
     {
-        $config =  $this->app->registry['config']['Api'];
+        $config =  $this->registry['config']['Api'];
         $provider = $_GET['provider'] ?? $config['provider'];
         $language = $_GET['language'] ?? $config['language'];
         $since = $_GET['since'] ?? $config['since'];
