@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function home()
     {
         $content = Trending::fetch($this->getArgs());
-        $offset = $_GET['offset'] ?? $this->registry['config']['offset'];
+        $offset = $_GET['offset'] ?? $this->config['offset'];
         $paginator = new Paginator();
         $repos = $paginator->get($content, $offset);
 
@@ -21,12 +21,12 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getArgs(): array
+    private function getArgs(): array
     {
-        $config =  $this->registry['config']['Api'];
-        $provider = $_GET['provider'] ?? $config['provider'];
-        $language = $_GET['language'] ?? $config['language'];
-        $since = $_GET['since'] ?? $config['since'];
+        $api =  $this->config['Api'];
+        $provider = $_GET['provider'] ?? $api['provider'];
+        $language = $_GET['language'] ?? $api['language'];
+        $since = $_GET['since'] ?? $api['since'];
 
         return [
         	'provider' => $provider, 

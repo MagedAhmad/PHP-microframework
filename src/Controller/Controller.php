@@ -6,10 +6,10 @@ use TrendingRepos\App;
 
 class Controller
 {
-    protected $registry;
+    protected $config;
 
     public function __construct()
     {
-        $this->registry = (new App())->registry;
+        $this->config = (new App())->registry['config'];
     }
 }
