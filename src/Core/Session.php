@@ -5,15 +5,10 @@ namespace TrendingRepos\Core;
 class Session {
     public function __construct()
     {
-        if($this->isStarted())
+        if(!$this->isStarted())
         { 
             session_start(); 
         } 
-    }
-
-    public function isStarted(): bool
-    {
-        return session_status() === PHP_SESSION_ACTIVE;
     }
 
     public function set(string $key, string $value)
@@ -21,12 +16,12 @@ class Session {
         $_SESSION[$key] = $value;
     }
 
-    public function get(string $key) 
+    public function get(string $key): ?string
     {
         return $this->has($key) ? $_SESSION[$key] : null;
     }
 
-    public function all()
+    public function getAll()
     {
         return $_SESSION;
     }
@@ -36,13 +31,21 @@ class Session {
         if (empty($_SESSION)) {
             return false;
         }
+
         return array_key_exists($key, $_SESSION);
     }
 
-    public function destroy(string $key) 
+    public function unset(string $key) 
     {
-        if($this->has($key)) {
-            unset($_SESSION['counter']);
+        if(!$this->has($key)) {
+            return;
         }
+
+        unset($_SESSION['counter']);
+    }
+    
+    private function isStarted(): bool
+    {
+        return session_status() === PHP_SESSION_ACTIVE;
     }
 }

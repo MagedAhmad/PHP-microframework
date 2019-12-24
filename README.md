@@ -57,7 +57,7 @@ $paginator->get($records, $limit);
 
 Simply fire a flash message usings sessions
 ```
-$flash = new TrendingRepos\Core\Session;
-$flash->set('success', 'Some message to display!');
+$flash = new TrendingRepos\Core\Flash;
+$flash->setSuccess('Some message to display!'); // displays success message
 ```
-Supported types for now `success`| `danger` | `info`
+Supported types so far `setSuccess`| `setDanger` | `setInfo`

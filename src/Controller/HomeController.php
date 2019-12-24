@@ -5,7 +5,6 @@ namespace TrendingRepos\Controller;
 use TrendingRepos\App;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
-use TrendingRepos\Core\Session;
 
 class HomeController {
     public function home(){
