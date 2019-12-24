@@ -6,10 +6,6 @@ namespace TrendingRepos\Core;
 
 class Paginator
 {
-    /**
-     * Keeps pagination numbers
-     * @var array
-     */
     public $pagination = [
         'total_pages' => '',
         'current_page' => '',
@@ -17,30 +13,21 @@ class Paginator
         'prev_page' => '',
     ];
 
-
-    /**
-     * @param $records
-     * @param $limit
-     * @return array of limited records
-     */
-    public function get($records, $limit) {
-
+    public function get(array $records, int $limit) 
+    {
         $this->pagination['total_pages'] = $this->getPages(count($records), $limit);
         $this->setPages();
-        return array_slice($records, $this->pagination['prev_page']*$limit, $limit);
 
+        return array_slice($records, $this->pagination['prev_page']*$limit, $limit);
     }
 
     public function setPages() {
         $this->pagination['current_page'] = $this->getCurrentPage();
         $this->pagination['prev_page'] = $this->pagination['current_page'] - 1 ;
+
         $this->pagination['next_page'] = $this->pagination['current_page'] + 1 ;
     }
 
-    /**
-     *  get the current page number
-     * @return int|mixed
-     */
     public function getCurrentPage() {
         if (isset($_GET['page']) && $_GET['page'] != "") {
              return $_GET['page'];
@@ -49,84 +36,45 @@ class Paginator
         }
     }
 
-    /**
-     * Get array of <li> pagination links
-     */
-    public function links() {
-        for($counter = 1; $counter <= $this->pagination['total_pages']; $counter ++) {
-            echo "<div class='pagination'>";
-                if($this->pagination['current_page'] == $counter) {
-                     echo "<li><a class='active' href=" . $this->Baseurl().$counter . ">" . $counter . "</a></li>";
-                }else {
-                     echo "<li><a href=" . $this->Baseurl().$counter . ">" . $counter . "</a></li>";
-                }
-            echo "</div>";
-        }
-    }
-
-    /**
-     * Check if there is a next page
-     * @return bool
-     */
-    public function next() {
+    public function hasNext(): bool
+    {
         return ($this->pagination['next_page'] != ($this->pagination['total_pages']+1));
     }
 
-    /**
-     * Check if there is a previous page
-     * @return bool
-     */
-    public function prev() {
+    public function hasPrev(): bool
+    {
         return ($this->pagination['prev_page'] != 0);
-
     }
 
-    /**
-     * Get previous page url
-     * @return string
-     */
-    public function prevUrl() {
-
+    public function prevUrl(): string
+    {
          return $this->Baseurl() . $this->pagination['prev_page'];
     }
 
-    /**
-     * Get next page url
-     * @return string
-     */
-    public function nextUrl() {
+    public function nextUrl(): string
+    {
         return $this->Baseurl() . $this->pagination['next_page'];
     }
 
-    /**
-     * get the number of pages to paginate
-     * @param $records_number
-     * @param $limit
-     * @return float
-     */
-    private function getPages($records_number, $limit) {
+    private function getPages(int $records_number, int $limit): int 
+    {
         return ceil($records_number / $limit);
     }
 
-    /**
-     * @return string
-     */
-    public function Baseurl() {
-        if(!empty($_SERVER['QUERY_STRING']) && isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != "page=".$this->pagination['current_page']) {
+    public function Baseurl(): string
+    {
+        if(preg_match('(.\?page=)', $_SERVER['REQUEST_URI'])) {
+            $url =  trim($_SERVER['REQUEST_URI'], '?page='. $this->pagination['current_page']);
 
-            if(strpos($_SERVER['QUERY_STRING'], '&page=' . $this->pagination['current_page'])) {
-                $url = trim($_SERVER['QUERY_STRING'], '&page='. $this->pagination['current_page']);
-                return '?' . $url . '&page=';
-            }
-            $url = $_SERVER['QUERY_STRING'];
-            return '?' . $url . '&page=' ;
-        }else {
-            if(isset($_SERVER['QUERY_STRING'])) {
-                $url = trim($_SERVER['QUERY_STRING'], '?page='. $this->pagination['current_page']);
-            }else {
-                $url = $_SERVER['REQUEST_URI'];
-            }
             return $url . "?page=";
         }
+        
+        if(preg_match('(.\&page=)', $_SERVER['REQUEST_URI']) OR preg_match('(.\&offset=)', $_SERVER['REQUEST_URI'])) {
+            $url = trim($_SERVER['REQUEST_URI'], '&page='. $this->pagination['current_page']);
+        
+            return $url . '&page=';
+        }
+
+        return '?page=' ;
     }
 }
