@@ -57,3 +57,12 @@ For pagination u can use `Paginator` class.
 $paginator = new Paginator();
 $paginator->get($records, $limit);
 ```
+
+### Flash messages
+
+Simply fire a flash message usings sessions
+```
+$flash = new TrendingRepos\Core\Flash;
+$flash->setSuccess('Some message to display!'); // displays success message
+```
+Supported types so far `setSuccess`| `setDanger` | `setInfo`
