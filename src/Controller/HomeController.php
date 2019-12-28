@@ -10,7 +10,8 @@ class HomeController
 {
     public function home()
     {
-        $content = Trending::fetch($this->getArgs());
+        $trending = new Trending();
+        $content = $trending->fetch($this->getArgs());
         $offset = $_GET['offset'] ?? App::get('config')['offset'];
         $paginator = new Paginator;
         $repos = $paginator->get($content, $offset);

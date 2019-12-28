@@ -8,7 +8,7 @@
 
                     <select name="provider" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
 
-                        <?php foreach(TrendingRepos\Core\Trending::FetchProviders() as $prov) { ?>
+                        <?php foreach(TrendingRepos\App::get('config')['providers'] as $prov) { ?>
 
                             <option <?php if ($args['provider'] == $prov) echo 'selected'; ?>
                                     value="<?php echo $prov ?>"><?php echo $prov ?></option>
