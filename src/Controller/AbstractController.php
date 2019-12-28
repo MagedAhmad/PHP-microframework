@@ -4,12 +4,12 @@ namespace TrendingRepos\Controller;
 
 use TrendingRepos\App;
 
-class Controller
+abstract class AbstractController
 {
     protected $config;
 
     public function __construct()
     {
-        $this->config = (new App())->registry['config'];
+        $this->config = (new App())->getRegistry()['config'];
     }
 }

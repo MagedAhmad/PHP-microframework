@@ -2,7 +2,7 @@
 
 namespace TrendingRepos\Controller;
 
-class HealthCheckController
+class HealthCheckController extends AbstractController 
 {
     public function ping()
     {

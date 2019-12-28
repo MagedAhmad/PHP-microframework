@@ -8,7 +8,8 @@ use TrendingRepos\Core\Router;
 
 class App 
 {
-    public $registry = [];
+    private $registry = [];
+    /** @var Obj Router Object */
     private $router;
 
     public function __construct()
@@ -16,6 +17,11 @@ class App
         $this->loadConfigFile();  
         $this->setErrorReporting();
         $this->loadRouter();  
+    }
+
+    public function getRegistry(): array
+    {
+        return $this->registry;
     }
 
     public function run()
@@ -31,7 +37,7 @@ class App
 
     private function loadConfigFile()
     {
-        $this->registry['config'] = require './config/config.php'; 
+        $this->registry['config'] = require __DIR__ . '/../config/config.php'; 
     }
 
     private function setErrorReporting()
@@ -43,7 +49,7 @@ class App
 
     private function loadRouter()
     {
-        $this->registry['routes'] = require './config/routes.php';
+        $this->registry['routes'] = require __DIR__ . '/../config/routes.php';
 
         $this->router = new Router($this->registry['routes'], new Request());
     }

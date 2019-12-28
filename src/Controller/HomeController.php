@@ -5,7 +5,7 @@ namespace TrendingRepos\Controller;
 use TrendingRepos\Core\Paginator;
 use TrendingRepos\Core\Trending;
 
-class HomeController extends Controller 
+class HomeController extends AbstractController 
 {
     public function home()
     {
