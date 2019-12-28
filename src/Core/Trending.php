@@ -19,7 +19,7 @@ class Trending
         return json_decode($content);
     }
 
-    public function url($args): string
+    public function url(array $args): string
     {
         return "https://". $args['provider'] ."-trending-api.now.sh/repositories?language=".$args['language']."&since=". $args['since'];
     }

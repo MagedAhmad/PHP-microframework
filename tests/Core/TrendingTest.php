@@ -3,12 +3,21 @@
 
 use TrendingRepos\Core\Trending;
 use PHPUnit\Framework\TestCase;
+use TrendingRepos\App;
 
 class TrendingTest extends TestCase
 {
-    public function test_fetch_providers()
+    protected $trending;
+
+    public function setUp(): void
     {
-        $providers = Trending::FetchProviders();
+        $this->trending = new Trending();    
+    }
+
+    public function test_fetch_supported_providers()
+    {
+        $providers = (new App())->registry['config']['providers'];
+
         $this->assertEquals($providers, ['github', 'gitlab', 'bitbucket']);
     }
 
@@ -20,9 +29,10 @@ class TrendingTest extends TestCase
             'language' => 'PHP',
             'since' => 'weekly'
         ];
+
         $this->assertEquals(
             $url,
-            Trending::url($args)
+            $this->trending->url($args)
         );
         $url = "https://github-trending-api.now.sh/repositories?language=java&since=monthly";
         $args = [
@@ -30,9 +40,10 @@ class TrendingTest extends TestCase
             'language' => 'java',
             'since' => 'monthly'
         ];
+
         $this->assertEquals(
             $url,
-            Trending::url($args)
+            $this->trending->url($args)
         );
     }
 }

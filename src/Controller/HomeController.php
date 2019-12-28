@@ -9,8 +9,7 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $trending = new Trending();
-        $content = $trending->fetch($this->getArgs());
+        $content = (new Trending())->fetch($this->getArgs());
         $offset = $_GET['offset'] ?? $this->config['offset'];
         $paginator = new Paginator();
         $repos = $paginator->get($content, $offset);
@@ -18,7 +17,8 @@ class HomeController extends Controller
         return view('index', [
             'repos' => $repos,
             'paginator' => $paginator,
-            'args' => $this->getArgs()
+            'args' => $this->getArgs(),
+            'providers' => $this->config['providers']
         ]);
     }
 
