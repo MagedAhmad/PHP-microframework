@@ -10,6 +10,6 @@ abstract class AbstractController
 
     public function __construct()
     {
-        $this->config = (new App())->getRegistry()['config'];
+        $this->config = (new App())->getRegistry('config');
     }
 }

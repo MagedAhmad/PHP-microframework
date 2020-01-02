@@ -9,7 +9,7 @@ use TrendingRepos\Core\Router;
 class App 
 {
     private $registry = [];
-    /** @var Obj Router Object */
+    /** @var Router Object */
     private $router;
 
     public function __construct()
@@ -19,9 +19,9 @@ class App
         $this->loadRouter();  
     }
 
-    public function getRegistry(): array
+    public function getRegistry(string $key): array
     {
-        return $this->registry;
+        return $this->registry[$key];
     }
 
     public function run()
@@ -44,7 +44,7 @@ class App
     {
         ini_set('error_reporting', E_ALL);
         
-        ini_set('display_errors', $this->registry['config']['env'] ? 'On' : 'Off');
+        ini_set('display_errors', $this->registry['config']['env'] == 'development' ? 'On' : 'Off');
     }
 
     private function loadRouter()
