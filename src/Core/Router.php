@@ -38,14 +38,14 @@ class Router
 
     private function callAction(string $controller, string $action)
     {
-        $controller = "TrendingRepos\\Controller\\{$controller}";
-        $controller = new $controller;
+        $controllerName = "TrendingRepos\\Controller\\{$controller}";
+        $controller = new $controllerName();
 
         if(!method_exists($controller, $action)) {
             throw new RouterException('This action doesn\'t exist!');
         }
 
-        (new $controller)->$action();
+        $controller->$action();
     }
 
     private function uriExists(string $slug): bool

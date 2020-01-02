@@ -1,5 +1,6 @@
 <?php
 
+
 return [
     /*
      * Help set your project to deployment
@@ -10,6 +11,12 @@ return [
     'env' => 'development',
 
     /*
+    * Default Pagination Offset
+    *
+    */
+    'offset' => 10,
+
+    /*
      * Set your Api default attributes
      *
      */
@@ -17,5 +24,15 @@ return [
         'provider' => 'github',
         'language' => 'PHP',
         'since' => 'weekly'
+    ],
+
+    /*
+    * Supported providers
+    *
+    */
+    'providers' => [
+        'github',
+        'gitlab',
+        'bitbucket'
     ],
 ];
